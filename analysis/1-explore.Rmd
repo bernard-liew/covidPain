@@ -1,0 +1,213 @@
+---
+title: "1-explore"
+author: "Bernard"
+date: "2021-07-14"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+# Package
+```{r message=FALSE, warning=FALSE}
+library (tidyverse)
+library (skimr)
+library (DataExplorer)
+library (dataPreparation)
+library (glmnet)
+library (mboost)
+library (selectiveInference)
+library (gglasso)
+```
+
+# Data
+
+```{r}
+df <- rio::import ("data/data.xlsx", sheet = "X-Sect data (data transformed)")
+
+skim (df)
+
+names (df) <- janitor::make_clean_names(names (df))
+
+df <- df%>% 
+  dplyr::select (-c (region, chronic_diz, time, id))
+
+sum (is.na (df))
+```
+
+# Explore
+
+```{r}
+df %>%
+  dplyr::select_if(is.character) %>%
+  map_dbl (n_distinct)
+
+df %>%
+  dplyr::select(restrictions) %>%
+  unique()
+
+df %>%
+  dplyr::select(job) %>%
+  unique()
+```
+
+# Feature engineer
+
+```{r}
+df <- df %>%
+  dplyr::select (-c(pain_location, restrictions))
+
+ind_items <- grepl ("([0-9]+)", names(df))
+
+df <- df[, !ind_items]
+
+names(df)
+
+
+
+```
+
+# Collapse factors
+
+```{r}
+df <- df %>%
+  dplyr::select (-c(sx_exp_covid, job_restrictions, unemployed, pcr, consult, const_episod)) %>%
+  mutate (marital_status = ifelse (marital_status == "Married", "0", "1"),
+          education = ifelse (education == "University", "0", "1"),
+          job = ifelse (job == "Full-time job", "0", "1"),
+          change_in_pain = ifelse (grepl("improve", change_in_pain), "improve",
+                                   ifelse (grepl("worse", change_in_pain), "worse", change_in_pain)),
+          chiropractic = ifelse (grepl("Yes", chiropractic), "yes", "no"),
+          length_of_chiro_care = ifelse (length_of_chiro_care == ">12M", "over1y", "under1y"),
+          pain_duration = ifelse (pain_duration == ">12M", "over1y", "under1y"),
+          evolution = ifelse (evolution == "Worse", "0", "1"))
+
+skim (df)
+```
+
+
+# EDA
+
+```{r, eval = FALSE}
+create_report(df,
+              output_dir = "output/")
+```
+
+
+# Simple models 
+
+## Pain intensity as outcome
+
+### LASSO
+
+```{r}
+Y <- as.matrix (df$pain_intensity)
+
+X <- df %>%
+  as.data.frame() %>%
+  dplyr::select (-pain_intensity) %>% 
+  modify_if(is.numeric, scale, TRUE, TRUE) %>%
+  makeX()
+
+
+set.seed(42)
+cvl1 <- cv.glmnet(x = X, 
+                  y = Y, 
+                  family="gaussian",
+                  nfolds = 10,
+                  standardize = FALSE,
+                  intercept = TRUE)
+plot(cvl1)
+
+lambda <- cvl1$lambda.min
+coef(cvl1 , s = lambda)
+
+las <- glmnet(x = X, 
+                  y = Y, 
+                  family="gaussian",
+                  lambda = lambda,
+                  standardize = FALSE,
+                  intercept = TRUE)
+
+beta <- coef(las , s = lambda/nrow(df))[-1]
+
+m <- fixedLassoInf (x = X,
+                    y = Y,
+                    beta = beta,
+                    lambda = lambda)
+
+m
+```
+
+### group LASSO
+
+```{r}
+X <- df %>%
+  as.data.frame() %>%
+  dplyr::select (-pain_intensity) 
+
+cat_lvls <- X %>%
+  map_dbl (~ifelse (is.character(.x), n_distinct (.x), 1))
+ 
+
+grp <- rep (1:ncol (X), times = cat_lvls)
+
+X <- X %>% 
+  modify_if(is.numeric, scale, TRUE, TRUE) %>%
+  makeX()
+
+lambdas_to_try <- 10^seq(-3, 5, length.out = 100)
+
+cv <- cv.gglasso(x=X, 
+                 y=Y, 
+                 group=grp, 
+                 lambda = lambdas_to_try ,
+                 loss="ls",
+                 pred.loss="L2", 
+                 nfolds=5)
+
+coef (cv, s = cv$lambda.min)
+
+
+```
+
+
+
+
+### mboost
+
+```{r}
+
+y <- "pain_intensity"
+
+xs <- names(df)[!grepl (y, names(df))]
+xsnum <- xs [map_lgl (df[, !grepl (y, names(df))], is.numeric)]
+
+lhs = "pain_intensity ~ "
+
+rhs <-  paste(paste0("bols(", xs, ")", collapse = " + "))
+rhs <- paste(rhs,
+            sep = "+")
+# transform the whole string to a formula
+form = as.formula( paste0(lhs, rhs))
+
+
+df2 <- df %>%
+  mutate_at (xsnum, scale, TRUE, FALSE)
+
+m <- mboost(form, 
+            data = df2)
+
+cv10f <- cv(model.weights(m), type = "kfold")
+cvm <- cvrisk(m, folds = cv10f, grid= 1:200)
+
+mstop(cvm)
+plot(cvm)
+
+m[mstop(cvm)]
+
+coef(m)
+plot (varimp(m))
+
+
+```
+
