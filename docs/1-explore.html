@@ -1,0 +1,3373 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Bernard" />
+
+<meta name="date" content="2021-07-14" />
+
+<title>1-explore</title>
+
+<script src="site_libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">covidPain</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">1-explore</h1>
+<h4 class="author">Bernard</h4>
+<h4 class="date">2021-07-14</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2021-07-16
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>covidPain/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20210714code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20210714)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20210714code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20210714)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongb8a5548"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> b8a5548 </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongb8a5548" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version b8a5548. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .Rproj.user/
+
+Untracked files:
+    Untracked:  data/data.xlsx
+    Untracked:  output/report.html
+    Untracked:  output/report_files/
+
+Unstaged changes:
+    Modified:   .gitignore
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/1-explore.Rmd</code>) and HTML (<code>docs/1-explore.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+b8a5548
+</td>
+<td>
+Bernard
+</td>
+<td>
+2021-07-16
+</td>
+<td>
+quick analysis
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div id="package" class="section level1">
+<h1>Package</h1>
+<pre class="r"><code>library (tidyverse)
+library (skimr)
+library (DataExplorer)
+library (dataPreparation)
+library (glmnet)
+library (mboost)
+library (selectiveInference)
+library (gglasso)</code></pre>
+</div>
+<div id="data" class="section level1">
+<h1>Data</h1>
+<pre class="r"><code>df &lt;- rio::import (&quot;data/data.xlsx&quot;, sheet = &quot;X-Sect data (data transformed)&quot;)
+
+skim (df)</code></pre>
+<table>
+<caption>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td align="left">Name</td>
+<td align="left">df</td>
+</tr>
+<tr class="even">
+<td align="left">Number of rows</td>
+<td align="left">648</td>
+</tr>
+<tr class="odd">
+<td align="left">Number of columns</td>
+<td align="left">113</td>
+</tr>
+<tr class="even">
+<td align="left">_______________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Column type frequency:</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">character</td>
+<td align="left">25</td>
+</tr>
+<tr class="odd">
+<td align="left">numeric</td>
+<td align="left">87</td>
+</tr>
+<tr class="even">
+<td align="left">POSIXct</td>
+<td align="left">1</td>
+</tr>
+<tr class="odd">
+<td align="left">________________________</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">Group variables</td>
+<td align="left">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: character</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">min</th>
+<th align="right">max</th>
+<th align="right">empty</th>
+<th align="right">n_unique</th>
+<th align="right">whitespace</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Gender</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Marital status</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">6</td>
+<td align="right">8</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Education</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">4</td>
+<td align="right">11</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Region</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">7</td>
+<td align="right">26</td>
+<td align="right">0</td>
+<td align="right">16</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Chronic Diz</td>
+<td align="right">490</td>
+<td align="right">0.24</td>
+<td align="right">3</td>
+<td align="right">64</td>
+<td align="right">0</td>
+<td align="right">29</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Comorbidities</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Pain location</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">4</td>
+<td align="right">58</td>
+<td align="right">0</td>
+<td align="right">224</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Pain duration</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">3</td>
+<td align="right">5</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Chronicity</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">5</td>
+<td align="right">7</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Frequency</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">5</td>
+<td align="right">12</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Const/Episod</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">8</td>
+<td align="right">8</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Change in pain</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">8</td>
+<td align="right">17</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Evolution</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">5</td>
+<td align="right">9</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Change in Tx</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">PCR+</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Sx/Exp COVID</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Consult</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">2</td>
+<td align="right">5</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Job</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">7</td>
+<td align="right">34</td>
+<td align="right">0</td>
+<td align="right">10</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Unemployed</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Job changes</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">8</td>
+<td align="right">11</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Restrictions</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">2</td>
+<td align="right">155</td>
+<td align="right">0</td>
+<td align="right">80</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Job restrictions</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Health restrictions</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Chiropractic</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">2</td>
+<td align="right">36</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Length of chiro care</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">2</td>
+<td align="right">5</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+<th align="right">p0</th>
+<th align="right">p25</th>
+<th align="right">p50</th>
+<th align="right">p75</th>
+<th align="right">p100</th>
+<th align="left">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">ID</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">359.93</td>
+<td align="right">210.59</td>
+<td align="right">1</td>
+<td align="right">181.75</td>
+<td align="right">354.5</td>
+<td align="right">546.25</td>
+<td align="right">723</td>
+<td align="left">▇▇▇▇▇</td>
+</tr>
+<tr class="even">
+<td align="left">Age</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">46.97</td>
+<td align="right">12.51</td>
+<td align="right">17</td>
+<td align="right">38.00</td>
+<td align="right">47.0</td>
+<td align="right">56.00</td>
+<td align="right">87</td>
+<td align="left">▂▇▇▃▁</td>
+</tr>
+<tr class="odd">
+<td align="left">Cohab</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1.81</td>
+<td align="right">1.04</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">2.0</td>
+<td align="right">3.00</td>
+<td align="right">3</td>
+<td align="left">▃▆▁▆▇</td>
+</tr>
+<tr class="even">
+<td align="left"># pain sites</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3.24</td>
+<td align="right">2.06</td>
+<td align="right">1</td>
+<td align="right">2.00</td>
+<td align="right">3.0</td>
+<td align="right">4.00</td>
+<td align="right">9</td>
+<td align="left">▇▇▂▁▁</td>
+</tr>
+<tr class="odd">
+<td align="left">Pain intensity</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">5.32</td>
+<td align="right">2.16</td>
+<td align="right">0</td>
+<td align="right">4.00</td>
+<td align="right">6.0</td>
+<td align="right">7.00</td>
+<td align="right">10</td>
+<td align="left">▃▅▇▇▁</td>
+</tr>
+<tr class="even">
+<td align="left">Int1</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3.05</td>
+<td align="right">2.73</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">2.0</td>
+<td align="right">5.00</td>
+<td align="right">10</td>
+<td align="left">▇▂▂▂▁</td>
+</tr>
+<tr class="odd">
+<td align="left">Int2</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3.19</td>
+<td align="right">2.85</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">2.0</td>
+<td align="right">5.00</td>
+<td align="right">10</td>
+<td align="left">▇▂▂▂▁</td>
+</tr>
+<tr class="even">
+<td align="left">Int3</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3.16</td>
+<td align="right">2.88</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">2.0</td>
+<td align="right">5.00</td>
+<td align="right">10</td>
+<td align="left">▇▂▂▂▁</td>
+</tr>
+<tr class="odd">
+<td align="left">Int4</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.29</td>
+<td align="right">2.63</td>
+<td align="right">0</td>
+<td align="right">0.00</td>
+<td align="right">1.0</td>
+<td align="right">4.00</td>
+<td align="right">10</td>
+<td align="left">▇▂▂▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">Int5</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3.23</td>
+<td align="right">2.98</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">2.0</td>
+<td align="right">5.00</td>
+<td align="right">10</td>
+<td align="left">▇▂▂▂▁</td>
+</tr>
+<tr class="odd">
+<td align="left">Int6</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3.03</td>
+<td align="right">3.01</td>
+<td align="right">0</td>
+<td align="right">0.00</td>
+<td align="right">2.0</td>
+<td align="right">5.00</td>
+<td align="right">10</td>
+<td align="left">▇▂▂▂▁</td>
+</tr>
+<tr class="even">
+<td align="left">Interference</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">17.95</td>
+<td align="right">15.37</td>
+<td align="right">0</td>
+<td align="right">5.00</td>
+<td align="right">14.0</td>
+<td align="right">30.00</td>
+<td align="right">60</td>
+<td align="left">▇▃▃▂▁</td>
+</tr>
+<tr class="odd">
+<td align="left">pcs1</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1.29</td>
+<td align="right">1.02</td>
+<td align="right">0</td>
+<td align="right">0.00</td>
+<td align="right">1.0</td>
+<td align="right">2.00</td>
+<td align="right">4</td>
+<td align="left">▆▅▇▂▁</td>
+</tr>
+<tr class="even">
+<td align="left">pcs2</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1.78</td>
+<td align="right">0.97</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">2.0</td>
+<td align="right">2.00</td>
+<td align="right">4</td>
+<td align="left">▂▃▇▂▁</td>
+</tr>
+<tr class="odd">
+<td align="left">pcs3</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1.32</td>
+<td align="right">0.97</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">1.0</td>
+<td align="right">2.00</td>
+<td align="right">4</td>
+<td align="left">▅▇▇▂▁</td>
+</tr>
+<tr class="even">
+<td align="left">pcs4</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.39</td>
+<td align="right">1.17</td>
+<td align="right">0</td>
+<td align="right">2.00</td>
+<td align="right">2.0</td>
+<td align="right">3.00</td>
+<td align="right">4</td>
+<td align="left">▂▃▇▆▅</td>
+</tr>
+<tr class="odd">
+<td align="left">PCS</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">6.77</td>
+<td align="right">3.28</td>
+<td align="right">0</td>
+<td align="right">4.00</td>
+<td align="right">7.0</td>
+<td align="right">9.00</td>
+<td align="right">15</td>
+<td align="left">▅▇▇▃▁</td>
+</tr>
+<tr class="even">
+<td align="left">tsk1</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.41</td>
+<td align="right">0.96</td>
+<td align="right">1</td>
+<td align="right">2.00</td>
+<td align="right">3.0</td>
+<td align="right">3.00</td>
+<td align="right">4</td>
+<td align="left">▅▆▁▇▂</td>
+</tr>
+<tr class="odd">
+<td align="left">tsk2</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.68</td>
+<td align="right">0.90</td>
+<td align="right">1</td>
+<td align="right">2.00</td>
+<td align="right">3.0</td>
+<td align="right">3.00</td>
+<td align="right">4</td>
+<td align="left">▂▃▁▇▃</td>
+</tr>
+<tr class="even">
+<td align="left">tsk3</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.27</td>
+<td align="right">0.84</td>
+<td align="right">1</td>
+<td align="right">2.00</td>
+<td align="right">2.0</td>
+<td align="right">3.00</td>
+<td align="right">4</td>
+<td align="left">▃▇▁▆▁</td>
+</tr>
+<tr class="odd">
+<td align="left">tsk4</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.59</td>
+<td align="right">0.79</td>
+<td align="right">1</td>
+<td align="right">2.00</td>
+<td align="right">3.0</td>
+<td align="right">3.00</td>
+<td align="right">4</td>
+<td align="left">▂▅▁▇▂</td>
+</tr>
+<tr class="even">
+<td align="left">tsk5</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.38</td>
+<td align="right">0.89</td>
+<td align="right">1</td>
+<td align="right">2.00</td>
+<td align="right">2.0</td>
+<td align="right">3.00</td>
+<td align="right">4</td>
+<td align="left">▃▆▁▇▂</td>
+</tr>
+<tr class="odd">
+<td align="left">tsk6</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.52</td>
+<td align="right">0.84</td>
+<td align="right">1</td>
+<td align="right">2.00</td>
+<td align="right">3.0</td>
+<td align="right">3.00</td>
+<td align="right">4</td>
+<td align="left">▂▆▁▇▂</td>
+</tr>
+<tr class="even">
+<td align="left">tsk7</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.15</td>
+<td align="right">0.80</td>
+<td align="right">1</td>
+<td align="right">2.00</td>
+<td align="right">2.0</td>
+<td align="right">3.00</td>
+<td align="right">4</td>
+<td align="left">▃▇▁▅▁</td>
+</tr>
+<tr class="odd">
+<td align="left">tsk8</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.79</td>
+<td align="right">0.72</td>
+<td align="right">1</td>
+<td align="right">2.00</td>
+<td align="right">3.0</td>
+<td align="right">3.00</td>
+<td align="right">4</td>
+<td align="left">▁▃▁▇▂</td>
+</tr>
+<tr class="even">
+<td align="left">tsk9</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1.70</td>
+<td align="right">0.67</td>
+<td align="right">1</td>
+<td align="right">1.00</td>
+<td align="right">2.0</td>
+<td align="right">2.00</td>
+<td align="right">4</td>
+<td align="left">▆▇▁▁▁</td>
+</tr>
+<tr class="odd">
+<td align="left">tsk10</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.08</td>
+<td align="right">0.86</td>
+<td align="right">1</td>
+<td align="right">1.00</td>
+<td align="right">2.0</td>
+<td align="right">3.00</td>
+<td align="right">4</td>
+<td align="left">▆▇▁▆▁</td>
+</tr>
+<tr class="even">
+<td align="left">tsk11</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1.96</td>
+<td align="right">0.71</td>
+<td align="right">1</td>
+<td align="right">1.00</td>
+<td align="right">2.0</td>
+<td align="right">2.00</td>
+<td align="right">4</td>
+<td align="left">▃▇▁▂▁</td>
+</tr>
+<tr class="odd">
+<td align="left">TSK</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">25.53</td>
+<td align="right">5.54</td>
+<td align="right">11</td>
+<td align="right">22.00</td>
+<td align="right">26.0</td>
+<td align="right">29.00</td>
+<td align="right">43</td>
+<td align="left">▂▃▇▂▁</td>
+</tr>
+<tr class="even">
+<td align="left">Sad</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4.56</td>
+<td align="right">3.13</td>
+<td align="right">0</td>
+<td align="right">2.00</td>
+<td align="right">5.0</td>
+<td align="right">7.00</td>
+<td align="right">10</td>
+<td align="left">▇▃▅▅▃</td>
+</tr>
+<tr class="odd">
+<td align="left">Worry</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">5.49</td>
+<td align="right">3.06</td>
+<td align="right">0</td>
+<td align="right">2.00</td>
+<td align="right">6.0</td>
+<td align="right">8.00</td>
+<td align="right">10</td>
+<td align="left">▇▃▆▇▆</td>
+</tr>
+<tr class="even">
+<td align="left">Lonely</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.02</td>
+<td align="right">2.60</td>
+<td align="right">0</td>
+<td align="right">0.00</td>
+<td align="right">1.0</td>
+<td align="right">3.00</td>
+<td align="right">10</td>
+<td align="left">▇▂▁▁▁</td>
+</tr>
+<tr class="odd">
+<td align="left">Anger</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4.21</td>
+<td align="right">3.30</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">4.0</td>
+<td align="right">7.00</td>
+<td align="right">10</td>
+<td align="left">▇▂▃▃▂</td>
+</tr>
+<tr class="even">
+<td align="left">Helpless</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">5.07</td>
+<td align="right">3.39</td>
+<td align="right">0</td>
+<td align="right">2.00</td>
+<td align="right">5.0</td>
+<td align="right">8.00</td>
+<td align="right">10</td>
+<td align="left">▇▂▃▅▅</td>
+</tr>
+<tr class="odd">
+<td align="left">Anxiety</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3.19</td>
+<td align="right">3.10</td>
+<td align="right">0</td>
+<td align="right">0.00</td>
+<td align="right">2.0</td>
+<td align="right">6.00</td>
+<td align="right">10</td>
+<td align="left">▇▂▂▂▁</td>
+</tr>
+<tr class="even">
+<td align="left">Surprise</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.56</td>
+<td align="right">2.81</td>
+<td align="right">0</td>
+<td align="right">0.00</td>
+<td align="right">2.0</td>
+<td align="right">5.00</td>
+<td align="right">10</td>
+<td align="left">▇▂▂▂▁</td>
+</tr>
+<tr class="odd">
+<td align="left">Relief</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1.70</td>
+<td align="right">2.30</td>
+<td align="right">0</td>
+<td align="right">0.00</td>
+<td align="right">1.0</td>
+<td align="right">3.00</td>
+<td align="right">10</td>
+<td align="left">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">Hope</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4.34</td>
+<td align="right">3.11</td>
+<td align="right">0</td>
+<td align="right">2.00</td>
+<td align="right">4.0</td>
+<td align="right">7.00</td>
+<td align="right">10</td>
+<td align="left">▇▃▅▃▃</td>
+</tr>
+<tr class="odd">
+<td align="left">Stress covid</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">7.05</td>
+<td align="right">2.53</td>
+<td align="right">0</td>
+<td align="right">6.00</td>
+<td align="right">8.0</td>
+<td align="right">9.00</td>
+<td align="right">10</td>
+<td align="left">▂▂▃▇▆</td>
+</tr>
+<tr class="even">
+<td align="left">Stress rest</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">6.51</td>
+<td align="right">2.53</td>
+<td align="right">0</td>
+<td align="right">5.00</td>
+<td align="right">7.0</td>
+<td align="right">8.00</td>
+<td align="right">10</td>
+<td align="left">▂▃▆▇▆</td>
+</tr>
+<tr class="odd">
+<td align="left">My health</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4.69</td>
+<td align="right">3.34</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">5.0</td>
+<td align="right">8.00</td>
+<td align="right">10</td>
+<td align="left">▇▃▅▃▃</td>
+</tr>
+<tr class="even">
+<td align="left">Economy</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4.33</td>
+<td align="right">3.39</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">4.0</td>
+<td align="right">7.00</td>
+<td align="right">10</td>
+<td align="left">▇▂▃▃▃</td>
+</tr>
+<tr class="odd">
+<td align="left">Food</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.07</td>
+<td align="right">2.57</td>
+<td align="right">0</td>
+<td align="right">0.00</td>
+<td align="right">1.0</td>
+<td align="right">4.00</td>
+<td align="right">10</td>
+<td align="left">▇▂▂▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">Resources</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.08</td>
+<td align="right">2.52</td>
+<td align="right">0</td>
+<td align="right">0.00</td>
+<td align="right">1.0</td>
+<td align="right">3.00</td>
+<td align="right">10</td>
+<td align="left">▇▂▂▁▁</td>
+</tr>
+<tr class="odd">
+<td align="left">Loved ones</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">7.13</td>
+<td align="right">3.18</td>
+<td align="right">0</td>
+<td align="right">5.00</td>
+<td align="right">8.0</td>
+<td align="right">10.00</td>
+<td align="right">10</td>
+<td align="left">▃▁▂▃▇</td>
+</tr>
+<tr class="even">
+<td align="left">gad1</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.95</td>
+<td align="right">0.89</td>
+<td align="right">0</td>
+<td align="right">0.00</td>
+<td align="right">1.0</td>
+<td align="right">1.00</td>
+<td align="right">3</td>
+<td align="left">▆▇▁▂▂</td>
+</tr>
+<tr class="odd">
+<td align="left">gad2</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.72</td>
+<td align="right">0.79</td>
+<td align="right">0</td>
+<td align="right">0.00</td>
+<td align="right">1.0</td>
+<td align="right">1.00</td>
+<td align="right">3</td>
+<td align="left">▇▇▁▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">gad3</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.82</td>
+<td align="right">0.80</td>
+<td align="right">0</td>
+<td align="right">0.00</td>
+<td align="right">1.0</td>
+<td align="right">1.00</td>
+<td align="right">3</td>
+<td align="left">▆▇▁▂▁</td>
+</tr>
+<tr class="odd">
+<td align="left">gad4</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.94</td>
+<td align="right">0.86</td>
+<td align="right">0</td>
+<td align="right">0.00</td>
+<td align="right">1.0</td>
+<td align="right">1.00</td>
+<td align="right">3</td>
+<td align="left">▅▇▁▂▁</td>
+</tr>
+<tr class="even">
+<td align="left">gad5</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.56</td>
+<td align="right">0.77</td>
+<td align="right">0</td>
+<td align="right">0.00</td>
+<td align="right">0.0</td>
+<td align="right">1.00</td>
+<td align="right">3</td>
+<td align="left">▇▅▁▁▁</td>
+</tr>
+<tr class="odd">
+<td align="left">gad6</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.90</td>
+<td align="right">0.76</td>
+<td align="right">0</td>
+<td align="right">0.00</td>
+<td align="right">1.0</td>
+<td align="right">1.00</td>
+<td align="right">3</td>
+<td align="left">▅▇▁▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">gad7</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.54</td>
+<td align="right">0.68</td>
+<td align="right">0</td>
+<td align="right">0.00</td>
+<td align="right">0.0</td>
+<td align="right">1.00</td>
+<td align="right">3</td>
+<td align="left">▇▆▁▁▁</td>
+</tr>
+<tr class="odd">
+<td align="left">GAD</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">5.45</td>
+<td align="right">4.30</td>
+<td align="right">0</td>
+<td align="right">2.00</td>
+<td align="right">5.0</td>
+<td align="right">7.00</td>
+<td align="right">21</td>
+<td align="left">▇▆▂▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">iou1</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.79</td>
+<td align="right">1.23</td>
+<td align="right">1</td>
+<td align="right">2.00</td>
+<td align="right">3.0</td>
+<td align="right">4.00</td>
+<td align="right">5</td>
+<td align="left">▅▇▇▅▃</td>
+</tr>
+<tr class="odd">
+<td align="left">iou2</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3.00</td>
+<td align="right">1.26</td>
+<td align="right">1</td>
+<td align="right">2.00</td>
+<td align="right">3.0</td>
+<td align="right">4.00</td>
+<td align="right">5</td>
+<td align="left">▅▇▇▇▅</td>
+</tr>
+<tr class="even">
+<td align="left">iou3</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.83</td>
+<td align="right">1.25</td>
+<td align="right">1</td>
+<td align="right">2.00</td>
+<td align="right">3.0</td>
+<td align="right">4.00</td>
+<td align="right">5</td>
+<td align="left">▅▇▇▅▃</td>
+</tr>
+<tr class="odd">
+<td align="left">iou4</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.53</td>
+<td align="right">1.26</td>
+<td align="right">1</td>
+<td align="right">2.00</td>
+<td align="right">2.0</td>
+<td align="right">3.00</td>
+<td align="right">5</td>
+<td align="left">▆▇▆▃▂</td>
+</tr>
+<tr class="even">
+<td align="left">iou5</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.38</td>
+<td align="right">1.23</td>
+<td align="right">1</td>
+<td align="right">1.00</td>
+<td align="right">2.0</td>
+<td align="right">3.00</td>
+<td align="right">5</td>
+<td align="left">▇▇▅▃▂</td>
+</tr>
+<tr class="odd">
+<td align="left">iou6</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.41</td>
+<td align="right">1.20</td>
+<td align="right">1</td>
+<td align="right">1.00</td>
+<td align="right">2.0</td>
+<td align="right">3.00</td>
+<td align="right">5</td>
+<td align="left">▆▇▅▃▂</td>
+</tr>
+<tr class="even">
+<td align="left">iou7</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.61</td>
+<td align="right">1.23</td>
+<td align="right">1</td>
+<td align="right">2.00</td>
+<td align="right">2.0</td>
+<td align="right">4.00</td>
+<td align="right">5</td>
+<td align="left">▆▇▇▅▂</td>
+</tr>
+<tr class="odd">
+<td align="left">iou8</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.31</td>
+<td align="right">1.24</td>
+<td align="right">1</td>
+<td align="right">1.00</td>
+<td align="right">2.0</td>
+<td align="right">3.00</td>
+<td align="right">5</td>
+<td align="left">▇▇▅▃▂</td>
+</tr>
+<tr class="even">
+<td align="left">iou9</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1.90</td>
+<td align="right">1.11</td>
+<td align="right">1</td>
+<td align="right">1.00</td>
+<td align="right">2.0</td>
+<td align="right">2.00</td>
+<td align="right">5</td>
+<td align="left">▇▅▂▁▁</td>
+</tr>
+<tr class="odd">
+<td align="left">iou10</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.44</td>
+<td align="right">1.19</td>
+<td align="right">1</td>
+<td align="right">2.00</td>
+<td align="right">2.0</td>
+<td align="right">3.00</td>
+<td align="right">5</td>
+<td align="left">▆▇▆▃▂</td>
+</tr>
+<tr class="even">
+<td align="left">iou11</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1.94</td>
+<td align="right">1.07</td>
+<td align="right">1</td>
+<td align="right">1.00</td>
+<td align="right">2.0</td>
+<td align="right">2.00</td>
+<td align="right">5</td>
+<td align="left">▇▆▂▂▁</td>
+</tr>
+<tr class="odd">
+<td align="left">iou12</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.03</td>
+<td align="right">1.09</td>
+<td align="right">1</td>
+<td align="right">1.00</td>
+<td align="right">2.0</td>
+<td align="right">3.00</td>
+<td align="right">5</td>
+<td align="left">▇▆▃▂▁</td>
+</tr>
+<tr class="even">
+<td align="left">IOUS</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">29.17</td>
+<td align="right">10.19</td>
+<td align="right">12</td>
+<td align="right">21.00</td>
+<td align="right">28.0</td>
+<td align="right">36.00</td>
+<td align="right">60</td>
+<td align="left">▆▇▅▃▁</td>
+</tr>
+<tr class="odd">
+<td align="left">se1</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">6.62</td>
+<td align="right">2.17</td>
+<td align="right">1</td>
+<td align="right">5.00</td>
+<td align="right">7.0</td>
+<td align="right">8.00</td>
+<td align="right">10</td>
+<td align="left">▁▂▆▇▃</td>
+</tr>
+<tr class="even">
+<td align="left">se2</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">8.07</td>
+<td align="right">1.65</td>
+<td align="right">1</td>
+<td align="right">7.00</td>
+<td align="right">8.0</td>
+<td align="right">9.00</td>
+<td align="right">10</td>
+<td align="left">▁▁▂▇▇</td>
+</tr>
+<tr class="odd">
+<td align="left">se3</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">7.55</td>
+<td align="right">1.81</td>
+<td align="right">1</td>
+<td align="right">7.00</td>
+<td align="right">8.0</td>
+<td align="right">9.00</td>
+<td align="right">10</td>
+<td align="left">▁▁▃▇▆</td>
+</tr>
+<tr class="even">
+<td align="left">se4</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">7.50</td>
+<td align="right">1.74</td>
+<td align="right">1</td>
+<td align="right">7.00</td>
+<td align="right">8.0</td>
+<td align="right">9.00</td>
+<td align="right">10</td>
+<td align="left">▁▁▃▇▅</td>
+</tr>
+<tr class="odd">
+<td align="left">se5</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">7.59</td>
+<td align="right">1.66</td>
+<td align="right">1</td>
+<td align="right">7.00</td>
+<td align="right">8.0</td>
+<td align="right">9.00</td>
+<td align="right">10</td>
+<td align="left">▁▁▃▇▅</td>
+</tr>
+<tr class="even">
+<td align="left">se6</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">6.85</td>
+<td align="right">1.86</td>
+<td align="right">1</td>
+<td align="right">6.00</td>
+<td align="right">7.0</td>
+<td align="right">8.00</td>
+<td align="right">10</td>
+<td align="left">▁▂▆▇▃</td>
+</tr>
+<tr class="odd">
+<td align="left">se7</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">7.11</td>
+<td align="right">1.73</td>
+<td align="right">1</td>
+<td align="right">6.00</td>
+<td align="right">7.0</td>
+<td align="right">8.00</td>
+<td align="right">10</td>
+<td align="left">▁▁▅▇▃</td>
+</tr>
+<tr class="even">
+<td align="left">se8</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">7.66</td>
+<td align="right">1.66</td>
+<td align="right">1</td>
+<td align="right">7.00</td>
+<td align="right">8.0</td>
+<td align="right">9.00</td>
+<td align="right">10</td>
+<td align="left">▁▁▃▇▆</td>
+</tr>
+<tr class="odd">
+<td align="left">se9</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">7.38</td>
+<td align="right">1.64</td>
+<td align="right">1</td>
+<td align="right">6.00</td>
+<td align="right">8.0</td>
+<td align="right">9.00</td>
+<td align="right">10</td>
+<td align="left">▁▁▃▇▅</td>
+</tr>
+<tr class="even">
+<td align="left">se10</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">7.29</td>
+<td align="right">1.76</td>
+<td align="right">1</td>
+<td align="right">6.00</td>
+<td align="right">8.0</td>
+<td align="right">9.00</td>
+<td align="right">10</td>
+<td align="left">▁▁▅▇▅</td>
+</tr>
+<tr class="odd">
+<td align="left">SE</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">73.62</td>
+<td align="right">14.15</td>
+<td align="right">10</td>
+<td align="right">65.00</td>
+<td align="right">74.0</td>
+<td align="right">84.00</td>
+<td align="right">100</td>
+<td align="left">▁▁▃▇▅</td>
+</tr>
+<tr class="even">
+<td align="left">five1</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3.56</td>
+<td align="right">0.60</td>
+<td align="right">1</td>
+<td align="right">3.00</td>
+<td align="right">4.0</td>
+<td align="right">4.00</td>
+<td align="right">4</td>
+<td align="left">▁▁▁▅▇</td>
+</tr>
+<tr class="odd">
+<td align="left">five2</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3.59</td>
+<td align="right">0.61</td>
+<td align="right">1</td>
+<td align="right">3.00</td>
+<td align="right">4.0</td>
+<td align="right">4.00</td>
+<td align="right">4</td>
+<td align="left">▁▁▁▃▇</td>
+</tr>
+<tr class="even">
+<td align="left">five3</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3.15</td>
+<td align="right">0.91</td>
+<td align="right">1</td>
+<td align="right">3.00</td>
+<td align="right">3.0</td>
+<td align="right">4.00</td>
+<td align="right">4</td>
+<td align="left">▁▃▁▆▇</td>
+</tr>
+<tr class="odd">
+<td align="left">five4</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3.12</td>
+<td align="right">0.99</td>
+<td align="right">1</td>
+<td align="right">2.00</td>
+<td align="right">3.0</td>
+<td align="right">4.00</td>
+<td align="right">4</td>
+<td align="left">▂▃▁▅▇</td>
+</tr>
+<tr class="even">
+<td align="left">five5</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.93</td>
+<td align="right">0.96</td>
+<td align="right">1</td>
+<td align="right">2.00</td>
+<td align="right">3.0</td>
+<td align="right">4.00</td>
+<td align="right">4</td>
+<td align="left">▂▅▁▇▇</td>
+</tr>
+<tr class="odd">
+<td align="left">five6</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.89</td>
+<td align="right">0.91</td>
+<td align="right">1</td>
+<td align="right">2.00</td>
+<td align="right">3.0</td>
+<td align="right">4.00</td>
+<td align="right">4</td>
+<td align="left">▂▅▁▇▆</td>
+</tr>
+<tr class="even">
+<td align="left">five7</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3.03</td>
+<td align="right">0.88</td>
+<td align="right">1</td>
+<td align="right">2.00</td>
+<td align="right">3.0</td>
+<td align="right">4.00</td>
+<td align="right">4</td>
+<td align="left">▁▅▁▇▇</td>
+</tr>
+<tr class="odd">
+<td align="left">five8</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.88</td>
+<td align="right">1.03</td>
+<td align="right">1</td>
+<td align="right">2.00</td>
+<td align="right">3.0</td>
+<td align="right">4.00</td>
+<td align="right">4</td>
+<td align="left">▂▆▁▆▇</td>
+</tr>
+<tr class="even">
+<td align="left">five9</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3.14</td>
+<td align="right">0.79</td>
+<td align="right">1</td>
+<td align="right">3.00</td>
+<td align="right">3.0</td>
+<td align="right">4.00</td>
+<td align="right">4</td>
+<td align="left">▁▃▁▇▇</td>
+</tr>
+<tr class="odd">
+<td align="left">five10</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3.20</td>
+<td align="right">0.74</td>
+<td align="right">1</td>
+<td align="right">3.00</td>
+<td align="right">3.0</td>
+<td align="right">4.00</td>
+<td align="right">4</td>
+<td align="left">▁▂▁▇▆</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: POSIXct</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="left">min</th>
+<th align="left">max</th>
+<th align="left">median</th>
+<th align="right">n_unique</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Time</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="left">2020-02-05 17:16:39</td>
+<td align="left">2020-11-05 23:40:21</td>
+<td align="left">2020-05-07 22:40:33</td>
+<td align="right">648</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>names (df) &lt;- janitor::make_clean_names(names (df))
+
+df &lt;- df%&gt;% 
+  dplyr::select (-c (region, chronic_diz, time, id))
+
+sum (is.na (df))</code></pre>
+<pre><code>[1] 0</code></pre>
+</div>
+<div id="explore" class="section level1">
+<h1>Explore</h1>
+<pre class="r"><code>df %&gt;%
+  dplyr::select_if(is.character) %&gt;%
+  map_dbl (n_distinct)</code></pre>
+<pre><code>              gender       marital_status            education 
+                   2                    4                    4 
+       comorbidities        pain_location        pain_duration 
+                   2                  224                    4 
+          chronicity            frequency         const_episod 
+                   2                    4                    2 
+      change_in_pain            evolution         change_in_tx 
+                   6                    3                    2 
+                 pcr         sx_exp_covid              consult 
+                   2                    2                    3 
+                 job           unemployed          job_changes 
+                  10                    2                    3 
+        restrictions     job_restrictions  health_restrictions 
+                  80                    2                    2 
+        chiropractic length_of_chiro_care 
+                   4                    4 </code></pre>
+<pre class="r"><code>df %&gt;%
+  dplyr::select(restrictions) %&gt;%
+  unique()</code></pre>
+<pre><code>                                                                                                                                                   restrictions
+1                                                                                                                  School closure, Reduced access to healthcare
+2                                                                                                                                              Home confinement
+7                                                                                   School closure, Remote work, Reduced access to healthcare, Home confinement
+10                                                                                                                       Job loss, Reduced access to healthcare
+11                                                          Reduced access to healthcare, Reduced healthcare provision for chronic conditions, Home confinement
+13                                          School closure, Reduced access to healthcare, Reduced healthcare provision for chronic conditions, Home confinement
+17                                                                                                                                   Job loss, Home confinement
+18                                                                                                               Reduced access to healthcare, Home confinement
+23                                                                                                                                                  Remote work
+24                                                                                                                    Remote work, Reduced access to healthcare
+25                                                                        School closure, Reduced healthcare provision for chronic conditions, Home confinement
+26                                                                                                                                                     Job loss
+28                                                                                                                School closure, Remote work, Home confinement
+30                                                                                                                                  School closure, Remote work
+33                                                                                        Reduced access to healthcare, Reduced quality of healthcare provision
+34                                                                                                  Remote work, Reduced access to healthcare, Home confinement
+35                                                                                                                                Remote work, Home confinement
+36                                                                                                                                               School closure
+37                                                                                               School closure, Reduced access to healthcare, Home confinement
+40                                                                            Reduced access to healthcare, Reduced healthcare provision for chronic conditions
+49                                                                           Remote work, Reduced healthcare provision for chronic conditions, Home confinement
+57                                                                                                         School closure, Job loss, Home confinement, Outdoors
+58                  Job loss, Reduced access to healthcare, Reduced healthcare provision for chronic conditions, Reduced help from caregivers, Home confinement
+60                                                                                                               Reduced help from caregivers, Home confinement
+64                                                                                                                                     School closure, Job loss
+66                                                                                                                                 Reduced access to healthcare
+67                                                                                           Job loss, Reduced access to healthcare, Home confinement, Outdoors
+75                                                                                                          Reduced healthcare provision for chronic conditions
+77                                             Remote work, Reduced access to healthcare, Reduced healthcare provision for chronic conditions, Home confinement
+84                                                                                                                             School closure, Home confinement
+88                                                            School closure, Reduced access to healthcare, Reduced healthcare provision for chronic conditions
+93                                                                                                    School closure, Remote work, Reduced access to healthcare
+95                                                                                                             Job loss, Reduced access to healthcare, Outdoors
+105                                                                       School closure, Remote work, Job loss, Reduced access to healthcare, Home confinement
+107                                                                                                                  School closure, Home confinement, Job loss
+109                                                                                Reduced access to healthcare, Reduced help from caregivers, Home confinement
+112                                                                                                  Reduced access to healthcare, Reduced help from caregivers
+117                                                                                                    Reduced access to healthcare, Home confinement, Job loss
+122                                                                                    School closure, Job loss, Reduced access to healthcare, Home confinement
+125                                                                                                                                                          No
+133                                                                                                                                Reduced help from caregivers
+147                            School closure, Remote work, Reduced access to healthcare, Reduced healthcare provision for chronic conditions, Home confinement
+156                                                                                                    Job loss, Reduced access to healthcare, Home confinement
+174                                                              Remote work, Reduced access to healthcare, Reduced healthcare provision for chronic conditions
+177                                                                                       Reduced healthcare provision for chronic conditions, Home confinement
+184                                                                                                     School closure, Remote work, Job loss, Home confinement
+194                                                                                                                        Disponer de más tiempo (en positivo)
+206                                                                      Job loss, Reduced access to healthcare, Reduced help from caregivers, Home confinement
+208                                                                 Job loss, Reduced access to healthcare, Reduced healthcare provision for chronic conditions
+220                                                                                                                School closure, Reduced help from caregivers
+226                                                                   Remote work, Reduced access to healthcare, Reduced help from caregivers, Home confinement
+227                                                                                            Reduced access to healthcare, Home confinement, Sobreinformación
+241 School closure, Job loss, Reduced access to healthcare, Reduced healthcare provision for chronic conditions, Reduced help from caregivers, Home confinement
+266                                                                                                                   Remote work, Reduced help from caregivers
+269                                                                                    School closure, Job loss, Reduced help from caregivers, Home confinement
+277                             School closure, Reduced access to healthcare, Reduced healthcare provision for chronic conditions, Reduced help from caregivers
+280                                               Job loss, Reduced access to healthcare, Reduced healthcare provision for chronic conditions, Home confinement
+302                                                                                                                     Remote work, Home confinement, Outdoors
+305                                              School closure, Remote work, Reduced access to healthcare, Reduced healthcare provision for chronic conditions
+334                                                                            School closure, Remote work, Reduced healthcare provision for chronic conditions
+344                           Reduced access to healthcare, Reduced healthcare provision for chronic conditions, Reduced help from caregivers, Home confinement
+345    Remote work, Job loss, Reduced access to healthcare, Reduced healthcare provision for chronic conditions, Reduced help from caregivers, Home confinement
+354                                                                             Job loss, Reduced healthcare provision for chronic conditions, Home confinement
+361                                                                           Reduced healthcare provision for chronic conditions, Reduced help from caregivers
+371                                                                                                    Reduced access to healthcare, Home confinement, Outdoors
+381                                                                                                      School closure, Job loss, Reduced access to healthcare
+404                                                                                       Remote work, Job loss, Reduced access to healthcare, Home confinement
+418                                                                                  School closure, Reduced access to healthcare, Reduced help from caregivers
+426                                                                School closure, Reduced access to healthcare, Reduced help from caregivers, Home confinement
+428                                                                                            Remote work, Reduced healthcare provision for chronic conditions
+481                                                                                              School closure, Reduced help from caregivers, Home confinement
+482                                                                                                 Remote work, Reduced help from caregivers, Home confinement
+513                                             Reduced access to healthcare, Reduced healthcare provision for chronic conditions, Reduced help from caregivers
+534                                                                                                                  School closure, Job loss, Home confinement
+549                                                         Reduced healthcare provision for chronic conditions, Reduced help from caregivers, Home confinement
+581                                                                                         School closure, Reduced healthcare provision for chronic conditions
+586                                                                                                                                       Remote work, Job loss
+631           School closure, Reduced access to healthcare, Reduced healthcare provision for chronic conditions, Reduced help from caregivers, Home confinement
+632                   School closure, Reduced access to healthcare, Reduced healthcare provision for chronic conditions, Reduced help from caregivers, Job loss
+641              Remote work, Reduced access to healthcare, Reduced healthcare provision for chronic conditions, Reduced help from caregivers, Home confinement</code></pre>
+<pre class="r"><code>df %&gt;%
+  dplyr::select(job) %&gt;%
+  unique()</code></pre>
+<pre><code>                                   job
+1                           Sick-leave
+2                        Full-time job
+5                        Part-time job
+10                          Unemployed
+11                             Retired
+13                       Self-employed
+18                             Student
+19  Invalidez derivada de otras causas
+20                   Housewife/husband
+177  Temporary or permanent disability</code></pre>
+</div>
+<div id="feature-engineer" class="section level1">
+<h1>Feature engineer</h1>
+<pre class="r"><code>df &lt;- df %&gt;%
+  dplyr::select (-c(pain_location, restrictions))
+
+ind_items &lt;- grepl (&quot;([0-9]+)&quot;, names(df))
+
+df &lt;- df[, !ind_items]
+
+names(df)</code></pre>
+<pre><code> [1] &quot;age&quot;                  &quot;gender&quot;               &quot;marital_status&quot;      
+ [4] &quot;cohab&quot;                &quot;education&quot;            &quot;comorbidities&quot;       
+ [7] &quot;number_pain_sites&quot;    &quot;pain_intensity&quot;       &quot;pain_duration&quot;       
+[10] &quot;chronicity&quot;           &quot;frequency&quot;            &quot;const_episod&quot;        
+[13] &quot;change_in_pain&quot;       &quot;evolution&quot;            &quot;interference&quot;        
+[16] &quot;change_in_tx&quot;         &quot;pcs&quot;                  &quot;tsk&quot;                 
+[19] &quot;pcr&quot;                  &quot;sx_exp_covid&quot;         &quot;consult&quot;             
+[22] &quot;job&quot;                  &quot;unemployed&quot;           &quot;job_changes&quot;         
+[25] &quot;job_restrictions&quot;     &quot;health_restrictions&quot;  &quot;sad&quot;                 
+[28] &quot;worry&quot;                &quot;lonely&quot;               &quot;anger&quot;               
+[31] &quot;helpless&quot;             &quot;anxiety&quot;              &quot;surprise&quot;            
+[34] &quot;relief&quot;               &quot;hope&quot;                 &quot;stress_covid&quot;        
+[37] &quot;stress_rest&quot;          &quot;my_health&quot;            &quot;economy&quot;             
+[40] &quot;food&quot;                 &quot;resources&quot;            &quot;loved_ones&quot;          
+[43] &quot;gad&quot;                  &quot;ious&quot;                 &quot;se&quot;                  
+[46] &quot;chiropractic&quot;         &quot;length_of_chiro_care&quot;</code></pre>
+</div>
+<div id="collapse-factors" class="section level1">
+<h1>Collapse factors</h1>
+<pre class="r"><code>df &lt;- df %&gt;%
+  dplyr::select (-c(sx_exp_covid, job_restrictions, unemployed, pcr, consult, const_episod)) %&gt;%
+  mutate (marital_status = ifelse (marital_status == &quot;Married&quot;, &quot;0&quot;, &quot;1&quot;),
+          education = ifelse (education == &quot;University&quot;, &quot;0&quot;, &quot;1&quot;),
+          job = ifelse (job == &quot;Full-time job&quot;, &quot;0&quot;, &quot;1&quot;),
+          change_in_pain = ifelse (grepl(&quot;improve&quot;, change_in_pain), &quot;improve&quot;,
+                                   ifelse (grepl(&quot;worse&quot;, change_in_pain), &quot;worse&quot;, change_in_pain)),
+          chiropractic = ifelse (grepl(&quot;Yes&quot;, chiropractic), &quot;yes&quot;, &quot;no&quot;),
+          length_of_chiro_care = ifelse (length_of_chiro_care == &quot;&gt;12M&quot;, &quot;over1y&quot;, &quot;under1y&quot;),
+          pain_duration = ifelse (pain_duration == &quot;&gt;12M&quot;, &quot;over1y&quot;, &quot;under1y&quot;),
+          evolution = ifelse (evolution == &quot;Worse&quot;, &quot;0&quot;, &quot;1&quot;))
+
+skim (df)</code></pre>
+<table>
+<caption>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td align="left">Name</td>
+<td align="left">df</td>
+</tr>
+<tr class="even">
+<td align="left">Number of rows</td>
+<td align="left">648</td>
+</tr>
+<tr class="odd">
+<td align="left">Number of columns</td>
+<td align="left">41</td>
+</tr>
+<tr class="even">
+<td align="left">_______________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Column type frequency:</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">character</td>
+<td align="left">15</td>
+</tr>
+<tr class="odd">
+<td align="left">numeric</td>
+<td align="left">26</td>
+</tr>
+<tr class="even">
+<td align="left">________________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Group variables</td>
+<td align="left">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: character</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">min</th>
+<th align="right">max</th>
+<th align="right">empty</th>
+<th align="right">n_unique</th>
+<th align="right">whitespace</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">gender</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">marital_status</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">education</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">comorbidities</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">pain_duration</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">7</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">chronicity</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">5</td>
+<td align="right">7</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">frequency</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">5</td>
+<td align="right">12</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">change_in_pain</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">5</td>
+<td align="right">9</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">evolution</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">change_in_tx</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">job</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">job_changes</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">8</td>
+<td align="right">11</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">health_restrictions</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">chiropractic</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">length_of_chiro_care</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">7</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+<th align="right">p0</th>
+<th align="right">p25</th>
+<th align="right">p50</th>
+<th align="right">p75</th>
+<th align="right">p100</th>
+<th align="left">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">age</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">46.97</td>
+<td align="right">12.51</td>
+<td align="right">17</td>
+<td align="right">38</td>
+<td align="right">47</td>
+<td align="right">56</td>
+<td align="right">87</td>
+<td align="left">▂▇▇▃▁</td>
+</tr>
+<tr class="even">
+<td align="left">cohab</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1.81</td>
+<td align="right">1.04</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="left">▃▆▁▆▇</td>
+</tr>
+<tr class="odd">
+<td align="left">number_pain_sites</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3.24</td>
+<td align="right">2.06</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">9</td>
+<td align="left">▇▇▂▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">pain_intensity</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">5.32</td>
+<td align="right">2.16</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">6</td>
+<td align="right">7</td>
+<td align="right">10</td>
+<td align="left">▃▅▇▇▁</td>
+</tr>
+<tr class="odd">
+<td align="left">interference</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">17.95</td>
+<td align="right">15.37</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">14</td>
+<td align="right">30</td>
+<td align="right">60</td>
+<td align="left">▇▃▃▂▁</td>
+</tr>
+<tr class="even">
+<td align="left">pcs</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">6.77</td>
+<td align="right">3.28</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">7</td>
+<td align="right">9</td>
+<td align="right">15</td>
+<td align="left">▅▇▇▃▁</td>
+</tr>
+<tr class="odd">
+<td align="left">tsk</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">25.53</td>
+<td align="right">5.54</td>
+<td align="right">11</td>
+<td align="right">22</td>
+<td align="right">26</td>
+<td align="right">29</td>
+<td align="right">43</td>
+<td align="left">▂▃▇▂▁</td>
+</tr>
+<tr class="even">
+<td align="left">sad</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4.56</td>
+<td align="right">3.13</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">5</td>
+<td align="right">7</td>
+<td align="right">10</td>
+<td align="left">▇▃▅▅▃</td>
+</tr>
+<tr class="odd">
+<td align="left">worry</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">5.49</td>
+<td align="right">3.06</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">6</td>
+<td align="right">8</td>
+<td align="right">10</td>
+<td align="left">▇▃▆▇▆</td>
+</tr>
+<tr class="even">
+<td align="left">lonely</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.02</td>
+<td align="right">2.60</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">10</td>
+<td align="left">▇▂▁▁▁</td>
+</tr>
+<tr class="odd">
+<td align="left">anger</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4.21</td>
+<td align="right">3.30</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">7</td>
+<td align="right">10</td>
+<td align="left">▇▂▃▃▂</td>
+</tr>
+<tr class="even">
+<td align="left">helpless</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">5.07</td>
+<td align="right">3.39</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">5</td>
+<td align="right">8</td>
+<td align="right">10</td>
+<td align="left">▇▂▃▅▅</td>
+</tr>
+<tr class="odd">
+<td align="left">anxiety</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3.19</td>
+<td align="right">3.10</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">6</td>
+<td align="right">10</td>
+<td align="left">▇▂▂▂▁</td>
+</tr>
+<tr class="even">
+<td align="left">surprise</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.56</td>
+<td align="right">2.81</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">5</td>
+<td align="right">10</td>
+<td align="left">▇▂▂▂▁</td>
+</tr>
+<tr class="odd">
+<td align="left">relief</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1.70</td>
+<td align="right">2.30</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">10</td>
+<td align="left">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">hope</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4.34</td>
+<td align="right">3.11</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">4</td>
+<td align="right">7</td>
+<td align="right">10</td>
+<td align="left">▇▃▅▃▃</td>
+</tr>
+<tr class="odd">
+<td align="left">stress_covid</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">7.05</td>
+<td align="right">2.53</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">8</td>
+<td align="right">9</td>
+<td align="right">10</td>
+<td align="left">▂▂▃▇▆</td>
+</tr>
+<tr class="even">
+<td align="left">stress_rest</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">6.51</td>
+<td align="right">2.53</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">7</td>
+<td align="right">8</td>
+<td align="right">10</td>
+<td align="left">▂▃▆▇▆</td>
+</tr>
+<tr class="odd">
+<td align="left">my_health</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4.69</td>
+<td align="right">3.34</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">5</td>
+<td align="right">8</td>
+<td align="right">10</td>
+<td align="left">▇▃▅▃▃</td>
+</tr>
+<tr class="even">
+<td align="left">economy</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4.33</td>
+<td align="right">3.39</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">7</td>
+<td align="right">10</td>
+<td align="left">▇▂▃▃▃</td>
+</tr>
+<tr class="odd">
+<td align="left">food</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.07</td>
+<td align="right">2.57</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">10</td>
+<td align="left">▇▂▂▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">resources</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.08</td>
+<td align="right">2.52</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">10</td>
+<td align="left">▇▂▂▁▁</td>
+</tr>
+<tr class="odd">
+<td align="left">loved_ones</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">7.13</td>
+<td align="right">3.18</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">8</td>
+<td align="right">10</td>
+<td align="right">10</td>
+<td align="left">▃▁▂▃▇</td>
+</tr>
+<tr class="even">
+<td align="left">gad</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">5.45</td>
+<td align="right">4.30</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">5</td>
+<td align="right">7</td>
+<td align="right">21</td>
+<td align="left">▇▆▂▁▁</td>
+</tr>
+<tr class="odd">
+<td align="left">ious</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">29.17</td>
+<td align="right">10.19</td>
+<td align="right">12</td>
+<td align="right">21</td>
+<td align="right">28</td>
+<td align="right">36</td>
+<td align="right">60</td>
+<td align="left">▆▇▅▃▁</td>
+</tr>
+<tr class="even">
+<td align="left">se</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">73.62</td>
+<td align="right">14.15</td>
+<td align="right">10</td>
+<td align="right">65</td>
+<td align="right">74</td>
+<td align="right">84</td>
+<td align="right">100</td>
+<td align="left">▁▁▃▇▅</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="eda" class="section level1">
+<h1>EDA</h1>
+<pre class="r"><code>create_report(df,
+              output_dir = &quot;output/&quot;)</code></pre>
+</div>
+<div id="simple-models" class="section level1">
+<h1>Simple models</h1>
+<div id="pain-intensity-as-outcome" class="section level2">
+<h2>Pain intensity as outcome</h2>
+<div id="lasso" class="section level3">
+<h3>LASSO</h3>
+<pre class="r"><code>Y &lt;- as.matrix (df$pain_intensity)
+
+X &lt;- df %&gt;%
+  as.data.frame() %&gt;%
+  dplyr::select (-pain_intensity) %&gt;% 
+  modify_if(is.numeric, scale, TRUE, TRUE) %&gt;%
+  makeX()
+
+
+set.seed(42)
+cvl1 &lt;- cv.glmnet(x = X, 
+                  y = Y, 
+                  family=&quot;gaussian&quot;,
+                  nfolds = 10,
+                  standardize = FALSE,
+                  intercept = TRUE)
+plot(cvl1)</code></pre>
+<p><img src="figure/1-explore.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>lambda &lt;- cvl1$lambda.min
+coef(cvl1 , s = lambda)</code></pre>
+<pre><code>61 x 1 sparse Matrix of class &quot;dgCMatrix&quot;
+                                       s1
+(Intercept)                  5.583389e+00
+age                          4.489535e-02
+genderH                     -1.856512e-01
+genderM                      1.170440e-13
+marital_status0              .           
+marital_status1              .           
+cohab                        9.204133e-02
+education0                   .           
+education1                   .           
+comorbiditiesNo              .           
+comorbiditiesYes             .           
+number_pain_sites            2.934584e-01
+pain_durationover1y          .           
+pain_durationunder1y         .           
+chronicityAcute              .           
+chronicityChronic            .           
+frequencyConstantly          7.563742e-02
+frequencyDaily               .           
+frequencyOccasionally       -1.105727e+00
+frequencyWeekly              .           
+change_in_painimprove        .           
+change_in_painNew pain       .           
+change_in_painNo change      .           
+change_in_painworse          3.502607e-01
+evolution0                   2.545023e-02
+evolution1                   .           
+interference                 5.563290e-01
+change_in_txNo               .           
+change_in_txYes              .           
+pcs                          2.441676e-01
+tsk                          .           
+job0                         .           
+job1                         .           
+job_changesJob loss          .           
+job_changesNo changes        .           
+job_changesRemote work       .           
+health_restrictionsNo        .           
+health_restrictionsSí        .           
+sad                          4.967057e-02
+worry                        .           
+lonely                       2.803217e-02
+anger                       -1.164494e-01
+helpless                     .           
+anxiety                      .           
+surprise                     .           
+relief                      -1.603224e-02
+hope                        -2.171712e-02
+stress_covid                 1.136423e-01
+stress_rest                  2.017821e-02
+my_health                    1.320251e-01
+economy                      .           
+food                         .           
+resources                    .           
+loved_ones                   .           
+gad                          .           
+ious                        -7.185346e-03
+se                           7.089972e-02
+chiropracticno               .           
+chiropracticyes              .           
+length_of_chiro_careover1y  -1.280403e-02
+length_of_chiro_careunder1y  3.133816e-15</code></pre>
+<pre class="r"><code>las &lt;- glmnet(x = X, 
+                  y = Y, 
+                  family=&quot;gaussian&quot;,
+                  lambda = lambda,
+                  standardize = FALSE,
+                  intercept = TRUE)
+
+beta &lt;- coef(las , s = lambda/nrow(df))[-1]
+
+m &lt;- fixedLassoInf (x = X,
+                    y = Y,
+                    beta = beta,
+                    lambda = lambda)</code></pre>
+<pre><code>Warning in fixedLassoInf(x = X, y = Y, beta = beta, lambda = lambda): Solution
+beta does not satisfy the KKT conditions (to within specified tolerances)</code></pre>
+<pre><code>Warning in lsfit(x, y, intercept = oo): &#39;X&#39; matrix was collinear</code></pre>
+<pre class="r"><code>m</code></pre>
+<pre><code>
+Call:
+fixedLassoInf(x = X, y = Y, beta = beta, lambda = lambda)
+
+Standard deviation of noise (specified or estimated) sigma = 1.653
+
+Testing results at lambda = 0.043, with alpha = 0.100
+
+ Var   Coef Z-score P-value LowConfPt UpConfPt LowTailArea UpTailArea
+   1  0.127   1.802   0.072    -0.018    0.244       0.050      0.049
+   2 -0.345  -2.300   0.021    -0.593   -0.069       0.050      0.049
+   6  0.142   2.072   0.038     0.010    0.255       0.049      0.049
+  11  0.272   3.715   0.000     0.150    0.394       0.049      0.048
+  16  0.345   1.676   0.094    -0.099    0.686       0.049      0.048
+  18 -1.194  -7.763   0.000    -1.448   -0.940       0.049      0.049
+  23  0.364   1.673   0.089    -0.100    1.019       0.049      0.050
+  24  0.187   0.836   0.402    -0.656    0.592       0.049      0.050
+  26  0.576   6.827   0.000     0.436    0.715       0.049      0.049
+  29  0.217   2.619   0.009     0.072    0.354       0.049      0.049
+  38  0.150   1.468   0.142    -0.091    0.319       0.049      0.049
+  40  0.090   1.103   0.270    -0.151    0.222       0.049      0.049
+  41 -0.225  -2.496   0.013    -0.375   -0.065       0.049      0.050
+  45 -0.073  -0.911   0.363    -0.204    0.205       0.048      0.050
+  46 -0.092  -1.101   0.271    -0.234    0.154       0.049      0.050
+  47  0.091   1.033   0.298    -0.183    0.269       0.050      0.049
+  48  0.060   0.738   0.460    -0.279    0.193       0.050      0.050
+  49  0.187   2.257   0.024     0.035    0.323       0.050      0.049
+  55 -0.050  -0.659   0.510    -0.168    0.308       0.049      0.049
+  56  0.116   1.673   0.094    -0.033    0.230       0.050      0.050
+  59 -0.185  -1.325   0.186    -0.416    0.170       0.049      0.050
+
+Note: coefficients shown are partial regression coefficients</code></pre>
+</div>
+<div id="group-lasso" class="section level3">
+<h3>group LASSO</h3>
+<pre class="r"><code>X &lt;- df %&gt;%
+  as.data.frame() %&gt;%
+  dplyr::select (-pain_intensity) 
+
+cat_lvls &lt;- X %&gt;%
+  map_dbl (~ifelse (is.character(.x), n_distinct (.x), 1))
+ 
+
+grp &lt;- rep (1:ncol (X), times = cat_lvls)
+
+X &lt;- X %&gt;% 
+  modify_if(is.numeric, scale, TRUE, TRUE) %&gt;%
+  makeX()
+
+lambdas_to_try &lt;- 10^seq(-3, 5, length.out = 100)
+
+cv &lt;- cv.gglasso(x=X, 
+                 y=Y, 
+                 group=grp, 
+                 lambda = lambdas_to_try ,
+                 loss=&quot;ls&quot;,
+                 pred.loss=&quot;L2&quot;, 
+                 nfolds=5)
+
+coef (cv, s = cv$lambda.min)</code></pre>
+<pre><code>                                       1
+(Intercept)                  5.346022793
+age                          0.054765139
+genderH                     -0.120223632
+genderM                      0.120230065
+marital_status0              0.000000000
+marital_status1              0.000000000
+cohab                        0.102776238
+education0                   0.000000000
+education1                   0.000000000
+comorbiditiesNo              0.000000000
+comorbiditiesYes             0.000000000
+number_pain_sites            0.292731818
+pain_durationover1y          0.020718388
+pain_durationunder1y        -0.020718808
+chronicityAcute              0.000000000
+chronicityChronic            0.000000000
+frequencyConstantly          0.417088029
+frequencyDaily               0.265464739
+frequencyOccasionally       -0.770594558
+frequencyWeekly              0.087842705
+change_in_painimprove       -0.007024646
+change_in_painNew pain      -0.025576602
+change_in_painNo change     -0.030283504
+change_in_painworse          0.062874533
+evolution0                   0.142482008
+evolution1                  -0.142567806
+interference                 0.562905930
+change_in_txNo               0.000000000
+change_in_txYes              0.000000000
+pcs                          0.260091382
+tsk                          0.000000000
+job0                         0.000000000
+job1                         0.000000000
+job_changesJob loss          0.000000000
+job_changesNo changes        0.000000000
+job_changesRemote work       0.000000000
+health_restrictionsNo        0.000000000
+health_restrictionsSí        0.000000000
+sad                          0.068817691
+worry                        0.000000000
+lonely                       0.044211687
+anger                       -0.139868395
+helpless                     0.021027533
+anxiety                      0.000000000
+surprise                     0.000000000
+relief                      -0.020987839
+hope                        -0.050097780
+stress_covid                 0.111722879
+stress_rest                  0.021632906
+my_health                    0.139966095
+economy                      0.000000000
+food                         0.000000000
+resources                    0.000000000
+loved_ones                   0.000000000
+gad                          0.000000000
+ious                        -0.025422396
+se                           0.076469963
+chiropracticno               0.000000000
+chiropracticyes              0.000000000
+length_of_chiro_careover1y  -0.029490297
+length_of_chiro_careunder1y  0.029480374</code></pre>
+</div>
+<div id="mboost" class="section level3">
+<h3>mboost</h3>
+<pre class="r"><code>y &lt;- &quot;pain_intensity&quot;
+
+xs &lt;- names(df)[!grepl (y, names(df))]
+xsnum &lt;- xs [map_lgl (df[, !grepl (y, names(df))], is.numeric)]
+
+lhs = &quot;pain_intensity ~ &quot;
+
+rhs &lt;-  paste(paste0(&quot;bols(&quot;, xs, &quot;)&quot;, collapse = &quot; + &quot;))
+rhs &lt;- paste(rhs,
+            sep = &quot;+&quot;)
+# transform the whole string to a formula
+form = as.formula( paste0(lhs, rhs))
+
+
+df2 &lt;- df %&gt;%
+  mutate_at (xsnum, scale, TRUE, FALSE)
+
+m &lt;- mboost(form, 
+            data = df2)
+
+cv10f &lt;- cv(model.weights(m), type = &quot;kfold&quot;)
+cvm &lt;- cvrisk(m, folds = cv10f, grid= 1:200)
+
+mstop(cvm)</code></pre>
+<pre><code>[1] 199</code></pre>
+<pre class="r"><code>plot(cvm)</code></pre>
+<p><img src="figure/1-explore.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>m[mstop(cvm)]</code></pre>
+<pre><code>
+     Model-based Boosting
+
+Call:
+mboost(formula = form, data = df2)
+
+
+     Squared Error (Regression) 
+
+Loss function: (y - f)^2 
+ 
+
+Number of boosting iterations: mstop = 199 
+Step size:  0.1 
+Offset:  5.320988 
+Number of baselearners:  40 </code></pre>
+<pre class="r"><code>coef(m)</code></pre>
+<pre><code>$`bols(age)`
+  (Intercept)           age 
+-9.022194e-17  3.128911e-03 
+
+$`bols(gender)`
+(Intercept)     genderM 
+ -0.2175265   0.3097961 
+
+$`bols(marital_status)`
+    (Intercept) marital_status1 
+     0.02308650     -0.05123305 
+
+$`bols(cohab)`
+  (Intercept)         cohab 
+-1.322731e-19  6.712008e-02 
+
+$`bols(education)`
+(Intercept)  education1 
+-0.01207261  0.03008865 
+
+$`bols(number_pain_sites)`
+      (Intercept) number_pain_sites 
+    -1.260248e-16      1.209686e-01 
+
+$`bols(pain_duration)`
+         (Intercept) pain_durationunder1y 
+          0.08797159          -0.15660877 
+
+$`bols(chronicity)`
+      (Intercept) chronicityChronic 
+        0.1123999        -0.1629421 
+
+$`bols(frequency)`
+          (Intercept)        frequencyDaily frequencyOccasionally 
+            0.8005495            -0.3917124            -1.5736018 
+      frequencyWeekly 
+           -0.6008742 
+
+$`bols(change_in_pain)`
+            (Intercept)  change_in_painNew pain change_in_painNo change 
+            -0.23421878              0.06609640             -0.02871372 
+    change_in_painworse 
+             0.46126231 
+
+$`bols(interference)`
+ (Intercept) interference 
+1.132919e-16 3.519760e-02 
+
+$`bols(pcs)`
+  (Intercept)           pcs 
+-2.325855e-17  6.824295e-02 
+
+$`bols(health_restrictions)`
+          (Intercept) health_restrictionsSí 
+          -0.01329078            0.03131791 
+
+$`bols(sad)`
+  (Intercept)           sad 
+-8.232859e-17  1.580591e-02 
+
+$`bols(lonely)`
+  (Intercept)        lonely 
+-7.076433e-17  1.020735e-02 
+
+$`bols(anger)`
+  (Intercept)         anger 
+-1.135366e-16 -2.680631e-02 
+
+$`bols(relief)`
+  (Intercept)        relief 
+-6.544613e-17 -9.404864e-03 
+
+$`bols(hope)`
+  (Intercept)          hope 
+-9.268309e-17 -1.192712e-02 
+
+$`bols(stress_covid)`
+  (Intercept)  stress_covid 
+-3.285243e-17  4.140324e-02 
+
+$`bols(stress_rest)`
+  (Intercept)   stress_rest 
+-3.388076e-18  9.928168e-03 
+
+$`bols(my_health)`
+  (Intercept)     my_health 
+-1.536852e-16  3.674331e-02 
+
+$`bols(se)`
+ (Intercept)           se 
+1.355253e-17 4.553040e-03 
+
+$`bols(length_of_chiro_care)`
+                (Intercept) length_of_chiro_careunder1y 
+                -0.03804427                  0.10718560 
+
+attr(,&quot;offset&quot;)
+[1] 5.320988</code></pre>
+<pre class="r"><code>plot (varimp(m))</code></pre>
+<p><img src="figure/1-explore.Rmd/unnamed-chunk-9-2.png" width="672" style="display: block; margin: auto;" /></p>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.0.2 (2020-06-22)
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+Running under: Windows 10 x64 (build 19042)
+
+Matrix products: default
+
+locale:
+[1] LC_COLLATE=English_United Kingdom.1252 
+[2] LC_CTYPE=English_United Kingdom.1252   
+[3] LC_MONETARY=English_United Kingdom.1252
+[4] LC_NUMERIC=C                           
+[5] LC_TIME=English_United Kingdom.1252    
+
+attached base packages:
+[1] parallel  stats     graphics  grDevices utils     datasets  methods  
+[8] base     
+
+other attached packages:
+ [1] gglasso_1.5              selectiveInference_1.2.5 MASS_7.3-53             
+ [4] adaptMCMC_1.3            coda_0.19-4              survival_3.2-7          
+ [7] intervals_0.15.2         mboost_2.9-4             stabs_0.6-3             
+[10] glmnet_4.1-2             dataPreparation_1.0.1    progress_1.2.2          
+[13] Matrix_1.2-18            lubridate_1.7.9.2        DataExplorer_0.8.2      
+[16] skimr_2.1.2              forcats_0.5.0            stringr_1.4.0           
+[19] dplyr_1.0.2              purrr_0.3.4              readr_1.4.0             
+[22] tidyr_1.1.2              tibble_3.0.4             ggplot2_3.3.3           
+[25] tidyverse_1.3.0          workflowr_1.6.2         
+
+loaded via a namespace (and not attached):
+ [1] fs_1.5.0          httr_1.4.2        rprojroot_2.0.2   repr_1.1.0       
+ [5] tools_4.0.2       backports_1.2.1   R6_2.5.0          rpart_4.1-15     
+ [9] DBI_1.1.0         colorspace_2.0-0  withr_2.3.0       tidyselect_1.1.0 
+[13] gridExtra_2.3     prettyunits_1.1.1 curl_4.3          compiler_4.0.2   
+[17] git2r_0.27.1      cli_2.2.0         rvest_0.3.6       xml2_1.3.2       
+[21] scales_1.1.1      mvtnorm_1.1-1     nnls_1.4          quadprog_1.5-8   
+[25] digest_0.6.27     foreign_0.8-81    rmarkdown_2.6     rio_0.5.16       
+[29] base64enc_0.1-3   pkgconfig_2.0.3   htmltools_0.5.0   highr_0.8        
+[33] dbplyr_2.0.0      htmlwidgets_1.5.3 rlang_0.4.10      readxl_1.3.1     
+[37] rstudioapi_0.13   shape_1.4.5       generics_0.1.0    jsonlite_1.7.2   
+[41] zip_2.1.1         magrittr_2.0.1    Formula_1.2-4     Rcpp_1.0.6       
+[45] munsell_0.5.0     fansi_0.4.1       partykit_1.2-11   lifecycle_0.2.0  
+[49] stringi_1.5.3     whisker_0.4       yaml_2.2.1        snakecase_0.11.0 
+[53] inum_1.0-1        grid_4.0.2        promises_1.1.1    crayon_1.3.4     
+[57] lattice_0.20-41   haven_2.3.1       splines_4.0.2     hms_0.5.3        
+[61] knitr_1.30        ps_1.5.0          pillar_1.4.7      igraph_1.2.6     
+[65] codetools_0.2-18  reprex_0.3.0      glue_1.4.2        evaluate_0.14    
+[69] data.table_1.14.0 modelr_0.1.8      vctrs_0.3.6       httpuv_1.5.4     
+[73] foreach_1.5.1     networkD3_0.4     cellranger_1.1.0  gtable_0.3.0     
+[77] assertthat_0.2.1  openxlsx_4.2.3    xfun_0.20         janitor_2.1.0    
+[81] libcoin_1.0-6     broom_0.7.4.9000  later_1.1.0.1     iterators_1.0.13 
+[85] ellipsis_0.3.1   </code></pre>
+</div>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
