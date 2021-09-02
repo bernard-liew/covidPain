@@ -1,0 +1,201 @@
+---
+title: "2-network"
+author: "Bernard"
+date: "2021-09-01"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+# Packages
+
+```{r message=FALSE, warning=FALSE}
+library (tidyverse)
+library (skimr)
+library (qgraph)
+library (bootnet)
+library (mgm)
+library (huge)
+```
+
+# Load data
+
+```{r, include = FALSE}
+nw_res <- readRDS("output/nw_res.RDS")
+list2env(nw_res,globalenv())
+```
+
+
+```{r}
+df <- readRDS("output/df_clean.RDS")
+skim (df)
+```
+
+# Select variables
+
+```{r}
+vars_keep <- c("age",
+               "gender",
+               "marital_status",
+               "cohab",
+               "education",
+               "comorbidities",
+               "number_pain_sites",
+               "pain_intensity",
+               "chronicity",
+               "frequency",
+               "evolution",
+               "change_in_tx",
+               "pcs",
+               "tsk",
+               "job",
+               "job_changes",
+               "sad",
+               "worry",
+               "lonely",
+               "anger",
+               "helpless",
+               "anxiety",
+               "surprise",
+               "relief",
+               "hope",
+               "stress_covid",
+               "gad",
+               "ious",
+               "se")
+
+df_sub <- df %>%
+  dplyr::select (all_of (vars_keep))
+
+
+```
+
+# Network analysis
+
+## Get column types
+
+```{r}
+
+stats_type <- c("edge", "strength", "betweenness", "expectedInfluence", "closeness")
+
+my_huge <- function (df) {
+
+  df[, col_type == "g"] <- huge::huge.npn (df[, col_type == "g"])
+
+  return (df)
+
+}
+
+nlvls <- df_sub %>%
+  map_if(is.numeric, function (x) x =1 ) %>%
+  map_if(is.character, n_distinct) %>%
+  unlist ()
+
+
+col_type <- df_sub %>%
+    map_chr(class) 
+
+col_type <- ifelse (col_type == "numeric", "g", "c")
+
+dat <- df_sub %>%
+  mutate_if (is.character, factor) %>%
+  mutate_if (is.factor, as.numeric) %>%
+  mutate_if (nlvls == 2, ~.x-1)
+
+var_names <- names(dat)
+names(dat) <- paste0("V", seq(1:ncol (dat)))
+
+```
+
+## Analysis
+
+```{r, eval = FALSE}
+# Network analysis
+set.seed(1)
+nw <- estimateNetwork (my_huge(dat), 
+                    default = "mgm",
+                     type= col_type,
+                     level= nlvls,
+                     criterion  = "CV",            # we used cross validation to select optimal tuning parameter
+                     nFolds = 10,            # using 10 folds
+                     order = 2,                       # we only include second order interactions
+                     binarySign = TRUE,
+                     scale = TRUE,
+                    .pbar = FALSE,
+                    .signInfo = FALSE)
+# Plot network
+plot (nw,
+      title = "Network", 
+      label.cex = 1, 
+      vsize = 5, 
+      curve = 0.4, 
+      curveAll = TRUE, 
+      nodeNames = var_names, 
+      title.cex = 4)
+
+# Centrality
+centr <-   centralityTable (nw)# Get centrality measures
+centralityPlot(nw,
+               include = c("Closeness", "Strength", "Betweenness"),  
+               print = FALSE, 
+               scale = "relative", 
+               labels = var_names)
+
+# Centrality stability
+B <-  1000
+centr_stb <- bootnet (nw,
+                      nBoots = B,
+                      type = "case",
+                      statistics = stats_type)
+
+cor_stb <- corStability (centr_stb)
+
+plot (centr_stb)
+
+# Bootstrap by case to get stability of centrality
+edgewts <- bootnet (nw,
+                   nBoots = B)
+```
+
+Report
+
+## Network
+
+```{r fig.height=7, fig.width=7}
+plot (nw,
+      title = "Network", 
+      label.cex = 1, 
+      vsize = 5, 
+      curve = 0.4, 
+      curveAll = TRUE, 
+      nodeNames = var_names, 
+      title.cex = 4)
+
+```
+
+## Importance
+```{r, fig.height = 7}
+centralityPlot(nw,
+               include = c("Closeness", "Strength", "Betweenness"),  
+               print = FALSE, 
+               scale = "relative", 
+               labels = var_names)
+```
+
+
+# Save
+
+```{r, eval = FALSE}
+nw_res <- list (data = df,
+                data_sub = df_sub,
+                dat = dat,
+                nw = nw,
+                centr = centr,
+                centr_stb = centr_stb,
+                cor_stb = cor_stb,
+                edgewts = edgewts)
+
+saveRDS(nw_res,
+        "output/nw_res.RDS")
+```
+

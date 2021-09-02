@@ -85,6 +85,12 @@ skim (df)
 ```
 
 
+```{r}
+saveRDS (df, 
+         "output/df_clean.RDS")
+```
+
+
 # EDA
 
 ```{r, eval = FALSE}
