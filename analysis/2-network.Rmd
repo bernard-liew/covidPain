@@ -10,26 +10,44 @@ editor_options:
 # Packages
 
 ```{r message=FALSE, warning=FALSE}
+# Tidying
 library (tidyverse)
 library (skimr)
+
+# Network analysis
 library (qgraph)
 library (bootnet)
 library (mgm)
 library (huge)
+
+# Office
+library (officer)
+library (flextable)
+
+# Plot 
+library (cowplot)
+library (plotrix)
+
+# Parallel
+library(foreach)
+library(doParallel)
+
+# HTML table
+library (kableExtra)
+
 ```
 
 # Load data
 
-```{r, include = FALSE}
-nw_res <- readRDS("output/nw_res.RDS")
-list2env(nw_res,globalenv())
-```
-
-
 ```{r}
 df <- readRDS("output/df_clean.RDS")
+
+```
+
+```{r}
 skim (df)
 ```
+
 
 # Select variables
 
@@ -37,7 +55,6 @@ skim (df)
 vars_keep <- c("age",
                "gender",
                "marital_status",
-               "cohab",
                "education",
                "comorbidities",
                "number_pain_sites",
@@ -49,7 +66,6 @@ vars_keep <- c("age",
                "pcs",
                "tsk",
                "job",
-               "job_changes",
                "sad",
                "worry",
                "lonely",
@@ -70,15 +86,44 @@ df_sub <- df %>%
 
 ```
 
+## Create subgroup datasets
+
+```{r}
+# Sex
+df_sub_m <- df_sub %>%
+  filter (gender == "M") %>%
+  select (-gender)
+df_sub_f <- df_sub %>%
+  filter (gender == "H")%>%
+  select (-gender)
+nrow(df_sub_m) + nrow(df_sub_f) == nrow (df_sub)
+
+# Chronicity
+df_sub_c <- df_sub %>%
+  filter (chronicity == "Chronic")%>%
+  select (-chronicity)
+df_sub_a <- df_sub %>%
+  filter (chronicity == "Acute")%>%
+  select (-chronicity)
+nrow(df_sub_a) + nrow(df_sub_c) == nrow (df_sub)
+
+df_list <- list (df = df_sub,
+                 male = df_sub_m,
+                 fema = df_sub_f,
+                 acute = df_sub_a,
+                 chronic = df_sub_c)
+```
+
+
 # Network analysis
 
 ## Get column types
 
 ```{r}
 
-stats_type <- c("edge", "strength", "betweenness", "expectedInfluence", "closeness")
+stats_type <- c("strength", "betweenness", "expectedInfluence", "closeness")
 
-my_huge <- function (df) {
+my_huge <- function (df, col_type) {
 
   df[, col_type == "g"] <- huge::huge.npn (df[, col_type == "g"])
 
@@ -86,24 +131,37 @@ my_huge <- function (df) {
 
 }
 
-nlvls <- df_sub %>%
-  map_if(is.numeric, function (x) x =1 ) %>%
-  map_if(is.character, n_distinct) %>%
-  unlist ()
+nlvls_list <- col_type_list <- var_names_list <- new_name_list <- vector ("list", length (df_list))
 
+for (n in seq_along(df_list)) {
+  
+  nlvls_list[[n]] <- df_list[[n]] %>%
+                      map_if(is.numeric, function (x) x =1 ) %>%
+                      map_if(is.character, n_distinct) %>%
+                      unlist ()
+  
+  col_type_list[[n]]  <- df_list[[n]] %>%
+                          map_chr(class) 
 
-col_type <- df_sub %>%
-    map_chr(class) 
+  col_type_list[[n]]  <- ifelse (col_type_list[[n]] == "numeric", "g", "c")
+  
+  df_list[[n]] <- df_list[[n]] %>%
+                  mutate_if (is.character, factor) %>%
+                  mutate_if (is.factor, as.numeric) %>%
+                  mutate_if (nlvls_list[[n]] == 2, ~.x-1)
+  
+  var_names_list[[n]] <- names(df_list[[n]])
 
-col_type <- ifelse (col_type == "numeric", "g", "c")
+}
 
-dat <- df_sub %>%
-  mutate_if (is.character, factor) %>%
-  mutate_if (is.factor, as.numeric) %>%
-  mutate_if (nlvls == 2, ~.x-1)
+new_names <- paste0("V", seq(1:ncol (df_list[[1]])))
+names(new_names) <- names(df_list[[1]])
 
-var_names <- names(dat)
-names(dat) <- paste0("V", seq(1:ncol (dat)))
+names(df_list[[1]]) <- new_names
+names(df_list[[2]]) <- new_names[names(new_names) %in% names(df_list[[2]])]
+names(df_list[[3]]) <- new_names[names(new_names) %in% names(df_list[[3]])]
+names(df_list[[4]]) <- new_names[names(new_names) %in% names(df_list[[4]])]
+names(df_list[[5]]) <- new_names[names(new_names) %in% names(df_list[[5]])]
 
 ```
 
@@ -112,90 +170,188 @@ names(dat) <- paste0("V", seq(1:ncol (dat)))
 ```{r, eval = FALSE}
 # Network analysis
 set.seed(1)
-nw <- estimateNetwork (my_huge(dat), 
-                    default = "mgm",
-                     type= col_type,
-                     level= nlvls,
-                     criterion  = "CV",            # we used cross validation to select optimal tuning parameter
-                     nFolds = 10,            # using 10 folds
-                     order = 2,                       # we only include second order interactions
-                     binarySign = TRUE,
-                     scale = TRUE,
-                    .pbar = FALSE,
-                    .signInfo = FALSE)
-# Plot network
-plot (nw,
-      title = "Network", 
-      label.cex = 1, 
-      vsize = 5, 
-      curve = 0.4, 
-      curveAll = TRUE, 
-      nodeNames = var_names, 
-      title.cex = 4)
 
-# Centrality
-centr <-   centralityTable (nw)# Get centrality measures
-centralityPlot(nw,
-               include = c("Closeness", "Strength", "Betweenness"),  
-               print = FALSE, 
-               scale = "relative", 
-               labels = var_names)
+nw_list <- centr_list <- centr_stb_list <- edgewts_list <- vector ("list", length (df_list))
+
+df_list <- list (df = df_list, col_type = col_type_list) %>%
+  pmap (my_huge) 
+
+for (n in seq_along(df_list)) {
+  
+  nw_list[[n]] <- estimateNetwork (data = df_list[[n]],
+                                default = "mgm",
+                                 type= col_type_list[[n]],
+                                 level= nlvls_list[[n]],
+                                 criterion  = "CV",# we used cross validation to select optimal tuning parameter
+                                 nFolds = 10, # using 10 folds
+                                 order = 2,# we only include second order interactions
+                                 binarySign = TRUE,
+                                 scale = TRUE,
+                                .pbar = FALSE,
+                                .signInfo = FALSE)
+}
 
 # Centrality stability
 B <-  1000
-centr_stb <- bootnet (nw,
-                      nBoots = B,
-                      type = "case",
-                      statistics = stats_type)
 
-cor_stb <- corStability (centr_stb)
+registerDoParallel(cores = 3)
+centr_stb_list <- foreach (n = 1:length (df_list), .packages = "bootnet") %do% 
+  bootnet (nw_list[[n]],
+           nBoots = B,
+           type = "case",
+           statistics = stats_type)
+stopImplicitCluster()
 
-plot (centr_stb)
+# Edgeweights stability
 
-# Bootstrap by case to get stability of centrality
-edgewts <- bootnet (nw,
-                   nBoots = B)
+registerDoParallel(cores = 3)
+  edgewts_list <- foreach (n = 1:length (df_list), .packages = "bootnet") %do% 
+    bootnet (nw_list[[n]],
+             nBoots = B)
+stopImplicitCluster()
+
+
 ```
 
-Report
+# Save results
 
-## Network
+```{r, eval = FALSE}
+res <- list (data = df_list,
+             names = var_names_list,
+             nw = nw_list,
+             stb = centr_stb_list,
+             wts =  edgewts_list,
+             original = df_sub)
 
-```{r fig.height=7, fig.width=7}
-plot (nw,
-      title = "Network", 
-      label.cex = 1, 
-      vsize = 5, 
-      curve = 0.4, 
-      curveAll = TRUE, 
-      nodeNames = var_names, 
-      title.cex = 4)
+saveRDS(res,
+        "output/res.RDS")
+```
 
+# Import
+
+```{r}
+res <- readRDS("output/res.RDS")
+list2env(res,globalenv())
+rm(res)
+```
+
+# Report
+
+## Networks
+
+```{r fig.height=30, fig.width=25, message=FALSE, warning=FALSE}
+
+par (mfrow = c(3,2))
+
+plot.new()
+# addtable2plot(0,
+#               -15,
+#               data.frame (var = names (df_list[[1]]),
+#                              names = var_names_list[[1]]),
+#               xpad=0, 
+#               ypad=0,
+#               bty='o',
+#               cex = 1,
+#               display.rownames = FALSE,
+#               hlines = TRUE,
+#               vlines = TRUE)
+
+
+plot (nw[[1]], title = "Cohort", label.cex = 3, vsize = 5, curve = 0.4, curveAll = TRUE, title.cex = 5)
+p2 <- plot (nw[[2]], title = "Male", label.cex = 3, vsize = 5, curve = 0.4, curveAll = TRUE, title.cex = 5)
+p3 <- plot (nw[[3]], title = "Female", layout = p2$layout, label.cex = 3, vsize = 5, curve = 0.4, curveAll = TRUE, title.cex = 5)
+p4 <- plot (nw[[4]], title = "Acute",  label.cex = 3, vsize = 5, curve = 0.4, curveAll = TRUE, title.cex = 5)
+p5 <- plot (nw[[5]], title = "Chronic", layout = p4$layout, label.cex = 3, vsize = 5, curve = 0.4, curveAll = TRUE, title.cex = 5)
+
+```
+
+```{r}
+
+var_df <- data.frame (var = names (df_list[[1]]),
+                      names = var_names_list[[1]])
+var_df  %>%
+  kbl(caption = "Variable names") %>%
+  kable_styling() %>%
+  scroll_box(width = "500px", height = "500px")
 ```
 
 ## Importance
-```{r, fig.height = 7}
-centralityPlot(nw,
-               include = c("Closeness", "Strength", "Betweenness"),  
-               print = FALSE, 
-               scale = "relative", 
-               labels = var_names)
+
+```{r, fig.height=30, fig.width=20, message=FALSE, warning=FALSE}
+c_fig <- map (nw, centralityPlot, include = c("Closeness", "Strength", "Betweenness"),  
+              print = FALSE, scale = "relative") %>%
+  map (~.x + 
+                  scale_x_continuous(breaks= c(0, 0.5, 1), lim = c(0, 1)) + 
+                  theme(text = element_text(size = 20), 
+                        axis.text.x = element_text(angle = 45, hjust = 1)), 
+              include = "all", print = FALSE, scale = "relative")
+
+#tiff(width = 15, height = 15, units = "in", res = 100, file = "output/odi_strength.tiff")
+cowplot::plot_grid(plotlist = c_fig, 
+                   labels = c("Cohort","Male", "Female", "Acute", "Chronic" ), 
+                   vjust = 1, 
+                   hjust = 0, 
+                   ncol = 2)
+#dev.off()
 ```
 
 
-# Save
 
-```{r, eval = FALSE}
-nw_res <- list (data = df,
-                data_sub = df_sub,
-                dat = dat,
-                nw = nw,
-                centr = centr,
-                centr_stb = centr_stb,
-                cor_stb = cor_stb,
-                edgewts = edgewts)
+## Edgeweights stability
+```{r, fig.height=30, fig.width=20, message=FALSE, warning=FALSE}
+w_fig <- map (wts, plot, order = "sample", CIstyle = "quantiles", labels = FALSE)
 
-saveRDS(nw_res,
-        "output/nw_res.RDS")
+w_fig <- map (w_fig, ~.x + 
+                  theme(text = element_text(size = 20)), 
+              include = "all", print = FALSE, scale = "relative")
+
+cowplot::plot_grid(plotlist = w_fig, 
+                   labels = c("Cohort","Male", "Female", "Acute", "Chronic" ), 
+                   vjust = 1, 
+                   hjust = -1, 
+                   ncol = 5,
+                   nrow = 1)
+```
+
+## Centrality stability
+
+```{r fig.height=20, fig.width=20, message=FALSE, warning=FALSE}
+# Plot centrality stability
+s_fig <- map (stb, plot, statistics = c("closeness", "strength", "betweenness"))
+
+s_fig <- map (s_fig, ~.x + 
+                ylab ("Ave Corr") + 
+                  theme(text = element_text(size = 20), 
+                        axis.text.x = element_text(angle = 90, hjust = 1)), 
+              include = "all", print = FALSE, scale = "relative")
+
+
+#tiff(width = 15, height = 15, units = "in", res = 100, file = "output/odi_stability.tiff")
+cowplot::plot_grid(plotlist = s_fig, 
+                   labels = c("Cohort","Male", "Female", "Acute", "Chronic" ), 
+                   vjust = 1, 
+                   hjust = -1, 
+                   ncol = 2,
+                   nrow = 3)
+```
+
+##  CS coefficient
+
+```{r, message=FALSE, warning=FALSE}
+cs_coef <- tibble (data = c("Cohort","Male", "Female", "Acute", "Chronic" ),
+                      stb = stb) %>%
+  mutate (cor_stb = map (stb,
+                         corStability)) %>%
+  select (data, cor_stb) %>%
+  unnest (cols = cor_stb) %>%
+  ungroup() %>%
+  mutate (measure = rep (c("betweenness", "closeness", "expectedInfluence", "strength"), 5)) %>%
+  mutate (CS = round (cor_stb, 2)) %>%
+  filter (measure %in% c("betweenness", "closeness","strength")) %>%
+  dplyr::select (data, measure, CS)
+
+cs_coef %>%
+  knitr::kable (caption = "Stability of centrality indices") %>%
+  kable_styling()
 ```
 
