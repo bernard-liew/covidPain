@@ -37,6 +37,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 <link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
 <!-- Add a small amount of space between sections. -->
@@ -359,7 +361,7 @@ div.tocify {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -368,7 +370,7 @@ div.tocify {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -377,10 +379,10 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-09-02
+<strong>Last updated:</strong> 2021-09-16
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>covidPain/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -396,12 +398,12 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown is untracked by Git. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
 </div>
 </div>
 </div>
@@ -468,16 +470,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombernardliewcovidPaintreecf5c5e9dd79abae6ab8f8d18e5bdcd5567fbe42btargetblankcf5c5e9a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/bernard-liew/covidPain/tree/cf5c5e9dd79abae6ab8f8d18e5bdcd5567fbe42b" target="_blank">cf5c5e9</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombernardliewcovidPaintree26e21397f92ab545d1d58842ea4338d902815744targetblank26e2139a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/bernard-liew/covidPain/tree/26e21397f92ab545d1d58842ea4338d902815744" target="_blank">26e2139</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombernardliewcovidPaintreecf5c5e9dd79abae6ab8f8d18e5bdcd5567fbe42btargetblankcf5c5e9a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombernardliewcovidPaintree26e21397f92ab545d1d58842ea4338d902815744targetblank26e2139a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/bernard-liew/covidPain/tree/cf5c5e9dd79abae6ab8f8d18e5bdcd5567fbe42b" target="_blank">cf5c5e9</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/bernard-liew/covidPain/tree/26e21397f92ab545d1d58842ea4338d902815744" target="_blank">26e2139</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -488,13 +490,7 @@ Ignored files:
     Ignored:    data/data.xlsx
 
 Untracked files:
-    Untracked:  analysis/2-network.Rmd
-    Untracked:  output/df_clean.RDS
-    Untracked:  output/nw_res.RDS
-
-Unstaged changes:
-    Modified:   analysis/1-explore.Rmd
-    Modified:   analysis/index.Rmd
+    Untracked:  output/res.RDS
 
 </code></pre>
 <p>
@@ -507,589 +503,1577 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
+
 <p>
-There are no past versions. Publish this analysis with <code>wflow_publish()</code> to start tracking its development.
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/2-network.Rmd</code>) and HTML (<code>docs/2-network.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
 </p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/bernard-liew/covidPain/blob/26e21397f92ab545d1d58842ea4338d902815744/analysis/2-network.Rmd" target="_blank">26e2139</a>
+</td>
+<td>
+Bernard
+</td>
+<td>
+2021-09-16
+</td>
+<td>
+updated analysis with subgroups
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/bernard-liew/covidPain/blob/ad325a2f7aa84969d4649689d915206ca52c1dab/analysis/2-network.Rmd" target="_blank">ad325a2</a>
+</td>
+<td>
+Bernard
+</td>
+<td>
+2021-09-02
+</td>
+<td>
+Added network analysis
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/bernard-liew/covidPain/ad325a2f7aa84969d4649689d915206ca52c1dab/docs/2-network.html" target="_blank">ad325a2</a>
+</td>
+<td>
+Bernard
+</td>
+<td>
+2021-09-02
+</td>
+<td>
+Added network analysis
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 </div>
 </div>
 </div>
 <div id="packages" class="section level1">
 <h1>Packages</h1>
-<pre class="r"><code>library (tidyverse)
+<pre class="r"><code># Tidying
+library (tidyverse)
 library (skimr)
+
+# Network analysis
 library (qgraph)
 library (bootnet)
 library (mgm)
-library (huge)</code></pre>
+library (huge)
+
+# Office
+library (officer)
+library (flextable)
+
+# Plot 
+library (cowplot)
+library (plotrix)
+
+# Parallel
+library(foreach)
+library(doParallel)
+
+# HTML table
+library (kableExtra)</code></pre>
 </div>
 <div id="load-data" class="section level1">
 <h1>Load data</h1>
-<pre class="r"><code>df &lt;- readRDS(&quot;output/df_clean.RDS&quot;)
-skim (df)</code></pre>
-<table>
-<caption>Data summary</caption>
+<pre class="r"><code>df &lt;- readRDS(&quot;output/df_clean.RDS&quot;)</code></pre>
+<pre class="r"><code>skim (df)</code></pre>
+<table style="width: auto;" class="table table-condensed">
+<caption>
+Data summary
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+</th>
+</tr>
+</thead>
 <tbody>
-<tr class="odd">
-<td align="left">Name</td>
-<td align="left">df</td>
+<tr>
+<td style="text-align:left;">
+Name
+</td>
+<td style="text-align:left;">
+df
+</td>
 </tr>
-<tr class="even">
-<td align="left">Number of rows</td>
-<td align="left">648</td>
+<tr>
+<td style="text-align:left;">
+Number of rows
+</td>
+<td style="text-align:left;">
+648
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Number of columns</td>
-<td align="left">41</td>
+<tr>
+<td style="text-align:left;">
+Number of columns
+</td>
+<td style="text-align:left;">
+41
+</td>
 </tr>
-<tr class="even">
-<td align="left">_______________________</td>
-<td align="left"></td>
+<tr>
+<td style="text-align:left;">
+_______________________
+</td>
+<td style="text-align:left;">
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Column type frequency:</td>
-<td align="left"></td>
+<tr>
+<td style="text-align:left;">
+Column type frequency:
+</td>
+<td style="text-align:left;">
+</td>
 </tr>
-<tr class="even">
-<td align="left">character</td>
-<td align="left">15</td>
+<tr>
+<td style="text-align:left;">
+character
+</td>
+<td style="text-align:left;">
+15
+</td>
 </tr>
-<tr class="odd">
-<td align="left">numeric</td>
-<td align="left">26</td>
+<tr>
+<td style="text-align:left;">
+numeric
+</td>
+<td style="text-align:left;">
+26
+</td>
 </tr>
-<tr class="even">
-<td align="left">________________________</td>
-<td align="left"></td>
+<tr>
+<td style="text-align:left;">
+________________________
+</td>
+<td style="text-align:left;">
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Group variables</td>
-<td align="left">None</td>
+<tr>
+<td style="text-align:left;">
+Group variables
+</td>
+<td style="text-align:left;">
+None
+</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Variable type: character</strong></p>
 <table>
 <thead>
-<tr class="header">
-<th align="left">skim_variable</th>
-<th align="right">n_missing</th>
-<th align="right">complete_rate</th>
-<th align="right">min</th>
-<th align="right">max</th>
-<th align="right">empty</th>
-<th align="right">n_unique</th>
-<th align="right">whitespace</th>
+<tr>
+<th style="text-align:left;">
+skim_variable
+</th>
+<th style="text-align:right;">
+n_missing
+</th>
+<th style="text-align:right;">
+complete_rate
+</th>
+<th style="text-align:right;">
+min
+</th>
+<th style="text-align:right;">
+max
+</th>
+<th style="text-align:right;">
+empty
+</th>
+<th style="text-align:right;">
+n_unique
+</th>
+<th style="text-align:right;">
+whitespace
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">gender</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">2</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+gender
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0
+</td>
 </tr>
-<tr class="even">
-<td align="left">marital_status</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">2</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+marital_status
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0
+</td>
 </tr>
-<tr class="odd">
-<td align="left">education</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">2</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+education
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0
+</td>
 </tr>
-<tr class="even">
-<td align="left">comorbidities</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">2</td>
-<td align="right">3</td>
-<td align="right">0</td>
-<td align="right">2</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+comorbidities
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0
+</td>
 </tr>
-<tr class="odd">
-<td align="left">pain_duration</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">6</td>
-<td align="right">7</td>
-<td align="right">0</td>
-<td align="right">2</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+pain_duration
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0
+</td>
 </tr>
-<tr class="even">
-<td align="left">chronicity</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">5</td>
-<td align="right">7</td>
-<td align="right">0</td>
-<td align="right">2</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+chronicity
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0
+</td>
 </tr>
-<tr class="odd">
-<td align="left">frequency</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">5</td>
-<td align="right">12</td>
-<td align="right">0</td>
-<td align="right">4</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+frequency
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+0
+</td>
 </tr>
-<tr class="even">
-<td align="left">change_in_pain</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">5</td>
-<td align="right">9</td>
-<td align="right">0</td>
-<td align="right">4</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+change_in_pain
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+0
+</td>
 </tr>
-<tr class="odd">
-<td align="left">evolution</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">2</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+evolution
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0
+</td>
 </tr>
-<tr class="even">
-<td align="left">change_in_tx</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">2</td>
-<td align="right">3</td>
-<td align="right">0</td>
-<td align="right">2</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+change_in_tx
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0
+</td>
 </tr>
-<tr class="odd">
-<td align="left">job</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">2</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+job
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0
+</td>
 </tr>
-<tr class="even">
-<td align="left">job_changes</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">8</td>
-<td align="right">11</td>
-<td align="right">0</td>
-<td align="right">3</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+job_changes
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+0
+</td>
 </tr>
-<tr class="odd">
-<td align="left">health_restrictions</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">2</td>
-<td align="right">2</td>
-<td align="right">0</td>
-<td align="right">2</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+health_restrictions
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0
+</td>
 </tr>
-<tr class="even">
-<td align="left">chiropractic</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">2</td>
-<td align="right">3</td>
-<td align="right">0</td>
-<td align="right">2</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+chiropractic
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0
+</td>
 </tr>
-<tr class="odd">
-<td align="left">length_of_chiro_care</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">6</td>
-<td align="right">7</td>
-<td align="right">0</td>
-<td align="right">2</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+length_of_chiro_care
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0
+</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Variable type: numeric</strong></p>
 <table>
 <thead>
-<tr class="header">
-<th align="left">skim_variable</th>
-<th align="right">n_missing</th>
-<th align="right">complete_rate</th>
-<th align="right">mean</th>
-<th align="right">sd</th>
-<th align="right">p0</th>
-<th align="right">p25</th>
-<th align="right">p50</th>
-<th align="right">p75</th>
-<th align="right">p100</th>
-<th align="left">hist</th>
+<tr>
+<th style="text-align:left;">
+skim_variable
+</th>
+<th style="text-align:right;">
+n_missing
+</th>
+<th style="text-align:right;">
+complete_rate
+</th>
+<th style="text-align:right;">
+mean
+</th>
+<th style="text-align:right;">
+sd
+</th>
+<th style="text-align:right;">
+p0
+</th>
+<th style="text-align:right;">
+p25
+</th>
+<th style="text-align:right;">
+p50
+</th>
+<th style="text-align:right;">
+p75
+</th>
+<th style="text-align:right;">
+p100
+</th>
+<th style="text-align:left;">
+hist
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">age</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">46.97</td>
-<td align="right">12.51</td>
-<td align="right">17</td>
-<td align="right">38</td>
-<td align="right">47</td>
-<td align="right">56</td>
-<td align="right">87</td>
-<td align="left">▂▇▇▃▁</td>
+<tr>
+<td style="text-align:left;">
+age
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+46.97
+</td>
+<td style="text-align:right;">
+12.51
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+38
+</td>
+<td style="text-align:right;">
+47
+</td>
+<td style="text-align:right;">
+56
+</td>
+<td style="text-align:right;">
+87
+</td>
+<td style="text-align:left;">
+&lt;U+2582&gt;&lt;U+2587&gt;&lt;U+2587&gt;&lt;U+2583&gt;&lt;U+2581&gt;
+</td>
 </tr>
-<tr class="even">
-<td align="left">cohab</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1.81</td>
-<td align="right">1.04</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">2</td>
-<td align="right">3</td>
-<td align="right">3</td>
-<td align="left">▃▆▁▆▇</td>
+<tr>
+<td style="text-align:left;">
+cohab
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1.81
+</td>
+<td style="text-align:right;">
+1.04
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+&lt;U+2583&gt;&lt;U+2586&gt;&lt;U+2581&gt;&lt;U+2586&gt;&lt;U+2587&gt;
+</td>
 </tr>
-<tr class="odd">
-<td align="left">number_pain_sites</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">3.24</td>
-<td align="right">2.06</td>
-<td align="right">1</td>
-<td align="right">2</td>
-<td align="right">3</td>
-<td align="right">4</td>
-<td align="right">9</td>
-<td align="left">▇▇▂▁▁</td>
+<tr>
+<td style="text-align:left;">
+number_pain_sites
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+3.24
+</td>
+<td style="text-align:right;">
+2.06
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:left;">
+&lt;U+2587&gt;&lt;U+2587&gt;&lt;U+2582&gt;&lt;U+2581&gt;&lt;U+2581&gt;
+</td>
 </tr>
-<tr class="even">
-<td align="left">pain_intensity</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">5.32</td>
-<td align="right">2.16</td>
-<td align="right">0</td>
-<td align="right">4</td>
-<td align="right">6</td>
-<td align="right">7</td>
-<td align="right">10</td>
-<td align="left">▃▅▇▇▁</td>
+<tr>
+<td style="text-align:left;">
+pain_intensity
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+5.32
+</td>
+<td style="text-align:right;">
+2.16
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:left;">
+&lt;U+2583&gt;&lt;U+2585&gt;&lt;U+2587&gt;&lt;U+2587&gt;&lt;U+2581&gt;
+</td>
 </tr>
-<tr class="odd">
-<td align="left">interference</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">17.95</td>
-<td align="right">15.37</td>
-<td align="right">0</td>
-<td align="right">5</td>
-<td align="right">14</td>
-<td align="right">30</td>
-<td align="right">60</td>
-<td align="left">▇▃▃▂▁</td>
+<tr>
+<td style="text-align:left;">
+interference
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+17.95
+</td>
+<td style="text-align:right;">
+15.37
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:left;">
+&lt;U+2587&gt;&lt;U+2583&gt;&lt;U+2583&gt;&lt;U+2582&gt;&lt;U+2581&gt;
+</td>
 </tr>
-<tr class="even">
-<td align="left">pcs</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">6.77</td>
-<td align="right">3.28</td>
-<td align="right">0</td>
-<td align="right">4</td>
-<td align="right">7</td>
-<td align="right">9</td>
-<td align="right">15</td>
-<td align="left">▅▇▇▃▁</td>
+<tr>
+<td style="text-align:left;">
+pcs
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+6.77
+</td>
+<td style="text-align:right;">
+3.28
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+15
+</td>
+<td style="text-align:left;">
+&lt;U+2585&gt;&lt;U+2587&gt;&lt;U+2587&gt;&lt;U+2583&gt;&lt;U+2581&gt;
+</td>
 </tr>
-<tr class="odd">
-<td align="left">tsk</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">25.53</td>
-<td align="right">5.54</td>
-<td align="right">11</td>
-<td align="right">22</td>
-<td align="right">26</td>
-<td align="right">29</td>
-<td align="right">43</td>
-<td align="left">▂▃▇▂▁</td>
+<tr>
+<td style="text-align:left;">
+tsk
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+25.53
+</td>
+<td style="text-align:right;">
+5.54
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:right;">
+29
+</td>
+<td style="text-align:right;">
+43
+</td>
+<td style="text-align:left;">
+&lt;U+2582&gt;&lt;U+2583&gt;&lt;U+2587&gt;&lt;U+2582&gt;&lt;U+2581&gt;
+</td>
 </tr>
-<tr class="even">
-<td align="left">sad</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">4.56</td>
-<td align="right">3.13</td>
-<td align="right">0</td>
-<td align="right">2</td>
-<td align="right">5</td>
-<td align="right">7</td>
-<td align="right">10</td>
-<td align="left">▇▃▅▅▃</td>
+<tr>
+<td style="text-align:left;">
+sad
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+4.56
+</td>
+<td style="text-align:right;">
+3.13
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:left;">
+&lt;U+2587&gt;&lt;U+2583&gt;&lt;U+2585&gt;&lt;U+2585&gt;&lt;U+2583&gt;
+</td>
 </tr>
-<tr class="odd">
-<td align="left">worry</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">5.49</td>
-<td align="right">3.06</td>
-<td align="right">0</td>
-<td align="right">2</td>
-<td align="right">6</td>
-<td align="right">8</td>
-<td align="right">10</td>
-<td align="left">▇▃▆▇▆</td>
+<tr>
+<td style="text-align:left;">
+worry
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+5.49
+</td>
+<td style="text-align:right;">
+3.06
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:left;">
+&lt;U+2587&gt;&lt;U+2583&gt;&lt;U+2586&gt;&lt;U+2587&gt;&lt;U+2586&gt;
+</td>
 </tr>
-<tr class="even">
-<td align="left">lonely</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">2.02</td>
-<td align="right">2.60</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">3</td>
-<td align="right">10</td>
-<td align="left">▇▂▁▁▁</td>
+<tr>
+<td style="text-align:left;">
+lonely
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2.02
+</td>
+<td style="text-align:right;">
+2.60
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:left;">
+&lt;U+2587&gt;&lt;U+2582&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;
+</td>
 </tr>
-<tr class="odd">
-<td align="left">anger</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">4.21</td>
-<td align="right">3.30</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">4</td>
-<td align="right">7</td>
-<td align="right">10</td>
-<td align="left">▇▂▃▃▂</td>
+<tr>
+<td style="text-align:left;">
+anger
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+4.21
+</td>
+<td style="text-align:right;">
+3.30
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:left;">
+&lt;U+2587&gt;&lt;U+2582&gt;&lt;U+2583&gt;&lt;U+2583&gt;&lt;U+2582&gt;
+</td>
 </tr>
-<tr class="even">
-<td align="left">helpless</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">5.07</td>
-<td align="right">3.39</td>
-<td align="right">0</td>
-<td align="right">2</td>
-<td align="right">5</td>
-<td align="right">8</td>
-<td align="right">10</td>
-<td align="left">▇▂▃▅▅</td>
+<tr>
+<td style="text-align:left;">
+helpless
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+5.07
+</td>
+<td style="text-align:right;">
+3.39
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:left;">
+&lt;U+2587&gt;&lt;U+2582&gt;&lt;U+2583&gt;&lt;U+2585&gt;&lt;U+2585&gt;
+</td>
 </tr>
-<tr class="odd">
-<td align="left">anxiety</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">3.19</td>
-<td align="right">3.10</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">2</td>
-<td align="right">6</td>
-<td align="right">10</td>
-<td align="left">▇▂▂▂▁</td>
+<tr>
+<td style="text-align:left;">
+anxiety
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+3.19
+</td>
+<td style="text-align:right;">
+3.10
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:left;">
+&lt;U+2587&gt;&lt;U+2582&gt;&lt;U+2582&gt;&lt;U+2582&gt;&lt;U+2581&gt;
+</td>
 </tr>
-<tr class="even">
-<td align="left">surprise</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">2.56</td>
-<td align="right">2.81</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">2</td>
-<td align="right">5</td>
-<td align="right">10</td>
-<td align="left">▇▂▂▂▁</td>
+<tr>
+<td style="text-align:left;">
+surprise
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2.56
+</td>
+<td style="text-align:right;">
+2.81
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:left;">
+&lt;U+2587&gt;&lt;U+2582&gt;&lt;U+2582&gt;&lt;U+2582&gt;&lt;U+2581&gt;
+</td>
 </tr>
-<tr class="odd">
-<td align="left">relief</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1.70</td>
-<td align="right">2.30</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">3</td>
-<td align="right">10</td>
-<td align="left">▇▁▁▁▁</td>
+<tr>
+<td style="text-align:left;">
+relief
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1.70
+</td>
+<td style="text-align:right;">
+2.30
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:left;">
+&lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;
+</td>
 </tr>
-<tr class="even">
-<td align="left">hope</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">4.34</td>
-<td align="right">3.11</td>
-<td align="right">0</td>
-<td align="right">2</td>
-<td align="right">4</td>
-<td align="right">7</td>
-<td align="right">10</td>
-<td align="left">▇▃▅▃▃</td>
+<tr>
+<td style="text-align:left;">
+hope
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+4.34
+</td>
+<td style="text-align:right;">
+3.11
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:left;">
+&lt;U+2587&gt;&lt;U+2583&gt;&lt;U+2585&gt;&lt;U+2583&gt;&lt;U+2583&gt;
+</td>
 </tr>
-<tr class="odd">
-<td align="left">stress_covid</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">7.05</td>
-<td align="right">2.53</td>
-<td align="right">0</td>
-<td align="right">6</td>
-<td align="right">8</td>
-<td align="right">9</td>
-<td align="right">10</td>
-<td align="left">▂▂▃▇▆</td>
+<tr>
+<td style="text-align:left;">
+stress_covid
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+7.05
+</td>
+<td style="text-align:right;">
+2.53
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:left;">
+&lt;U+2582&gt;&lt;U+2582&gt;&lt;U+2583&gt;&lt;U+2587&gt;&lt;U+2586&gt;
+</td>
 </tr>
-<tr class="even">
-<td align="left">stress_rest</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">6.51</td>
-<td align="right">2.53</td>
-<td align="right">0</td>
-<td align="right">5</td>
-<td align="right">7</td>
-<td align="right">8</td>
-<td align="right">10</td>
-<td align="left">▂▃▆▇▆</td>
+<tr>
+<td style="text-align:left;">
+stress_rest
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+6.51
+</td>
+<td style="text-align:right;">
+2.53
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:left;">
+&lt;U+2582&gt;&lt;U+2583&gt;&lt;U+2586&gt;&lt;U+2587&gt;&lt;U+2586&gt;
+</td>
 </tr>
-<tr class="odd">
-<td align="left">my_health</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">4.69</td>
-<td align="right">3.34</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">5</td>
-<td align="right">8</td>
-<td align="right">10</td>
-<td align="left">▇▃▅▃▃</td>
+<tr>
+<td style="text-align:left;">
+my_health
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+4.69
+</td>
+<td style="text-align:right;">
+3.34
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:left;">
+&lt;U+2587&gt;&lt;U+2583&gt;&lt;U+2585&gt;&lt;U+2583&gt;&lt;U+2583&gt;
+</td>
 </tr>
-<tr class="even">
-<td align="left">economy</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">4.33</td>
-<td align="right">3.39</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">4</td>
-<td align="right">7</td>
-<td align="right">10</td>
-<td align="left">▇▂▃▃▃</td>
+<tr>
+<td style="text-align:left;">
+economy
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+4.33
+</td>
+<td style="text-align:right;">
+3.39
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:left;">
+&lt;U+2587&gt;&lt;U+2582&gt;&lt;U+2583&gt;&lt;U+2583&gt;&lt;U+2583&gt;
+</td>
 </tr>
-<tr class="odd">
-<td align="left">food</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">2.07</td>
-<td align="right">2.57</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">4</td>
-<td align="right">10</td>
-<td align="left">▇▂▂▁▁</td>
+<tr>
+<td style="text-align:left;">
+food
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2.07
+</td>
+<td style="text-align:right;">
+2.57
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:left;">
+&lt;U+2587&gt;&lt;U+2582&gt;&lt;U+2582&gt;&lt;U+2581&gt;&lt;U+2581&gt;
+</td>
 </tr>
-<tr class="even">
-<td align="left">resources</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">2.08</td>
-<td align="right">2.52</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">3</td>
-<td align="right">10</td>
-<td align="left">▇▂▂▁▁</td>
+<tr>
+<td style="text-align:left;">
+resources
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2.08
+</td>
+<td style="text-align:right;">
+2.52
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:left;">
+&lt;U+2587&gt;&lt;U+2582&gt;&lt;U+2582&gt;&lt;U+2581&gt;&lt;U+2581&gt;
+</td>
 </tr>
-<tr class="odd">
-<td align="left">loved_ones</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">7.13</td>
-<td align="right">3.18</td>
-<td align="right">0</td>
-<td align="right">5</td>
-<td align="right">8</td>
-<td align="right">10</td>
-<td align="right">10</td>
-<td align="left">▃▁▂▃▇</td>
+<tr>
+<td style="text-align:left;">
+loved_ones
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+7.13
+</td>
+<td style="text-align:right;">
+3.18
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:left;">
+&lt;U+2583&gt;&lt;U+2581&gt;&lt;U+2582&gt;&lt;U+2583&gt;&lt;U+2587&gt;
+</td>
 </tr>
-<tr class="even">
-<td align="left">gad</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">5.45</td>
-<td align="right">4.30</td>
-<td align="right">0</td>
-<td align="right">2</td>
-<td align="right">5</td>
-<td align="right">7</td>
-<td align="right">21</td>
-<td align="left">▇▆▂▁▁</td>
+<tr>
+<td style="text-align:left;">
+gad
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+5.45
+</td>
+<td style="text-align:right;">
+4.30
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+21
+</td>
+<td style="text-align:left;">
+&lt;U+2587&gt;&lt;U+2586&gt;&lt;U+2582&gt;&lt;U+2581&gt;&lt;U+2581&gt;
+</td>
 </tr>
-<tr class="odd">
-<td align="left">ious</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">29.17</td>
-<td align="right">10.19</td>
-<td align="right">12</td>
-<td align="right">21</td>
-<td align="right">28</td>
-<td align="right">36</td>
-<td align="right">60</td>
-<td align="left">▆▇▅▃▁</td>
+<tr>
+<td style="text-align:left;">
+ious
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+29.17
+</td>
+<td style="text-align:right;">
+10.19
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+21
+</td>
+<td style="text-align:right;">
+28
+</td>
+<td style="text-align:right;">
+36
+</td>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:left;">
+&lt;U+2586&gt;&lt;U+2587&gt;&lt;U+2585&gt;&lt;U+2583&gt;&lt;U+2581&gt;
+</td>
 </tr>
-<tr class="even">
-<td align="left">se</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">73.62</td>
-<td align="right">14.15</td>
-<td align="right">10</td>
-<td align="right">65</td>
-<td align="right">74</td>
-<td align="right">84</td>
-<td align="right">100</td>
-<td align="left">▁▁▃▇▅</td>
+<tr>
+<td style="text-align:left;">
+se
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+73.62
+</td>
+<td style="text-align:right;">
+14.15
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+65
+</td>
+<td style="text-align:right;">
+74
+</td>
+<td style="text-align:right;">
+84
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:left;">
+&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2583&gt;&lt;U+2587&gt;&lt;U+2585&gt;
+</td>
 </tr>
 </tbody>
 </table>
@@ -1099,7 +2083,6 @@ skim (df)</code></pre>
 <pre class="r"><code>vars_keep &lt;- c(&quot;age&quot;,
                &quot;gender&quot;,
                &quot;marital_status&quot;,
-               &quot;cohab&quot;,
                &quot;education&quot;,
                &quot;comorbidities&quot;,
                &quot;number_pain_sites&quot;,
@@ -1111,7 +2094,6 @@ skim (df)</code></pre>
                &quot;pcs&quot;,
                &quot;tsk&quot;,
                &quot;job&quot;,
-               &quot;job_changes&quot;,
                &quot;sad&quot;,
                &quot;worry&quot;,
                &quot;lonely&quot;,
@@ -1128,14 +2110,40 @@ skim (df)</code></pre>
 
 df_sub &lt;- df %&gt;%
   dplyr::select (all_of (vars_keep))</code></pre>
+<div id="create-subgroup-datasets" class="section level2">
+<h2>Create subgroup datasets</h2>
+<pre class="r"><code># Sex
+df_sub_m &lt;- df_sub %&gt;%
+  filter (gender == &quot;M&quot;) %&gt;%
+  select (-gender)
+df_sub_f &lt;- df_sub %&gt;%
+  filter (gender == &quot;H&quot;)%&gt;%
+  select (-gender)
+nrow(df_sub_m) + nrow(df_sub_f) == nrow (df_sub)</code></pre>
+<pre><code>[1] TRUE</code></pre>
+<pre class="r"><code># Chronicity
+df_sub_c &lt;- df_sub %&gt;%
+  filter (chronicity == &quot;Chronic&quot;)%&gt;%
+  select (-chronicity)
+df_sub_a &lt;- df_sub %&gt;%
+  filter (chronicity == &quot;Acute&quot;)%&gt;%
+  select (-chronicity)
+nrow(df_sub_a) + nrow(df_sub_c) == nrow (df_sub)</code></pre>
+<pre><code>[1] TRUE</code></pre>
+<pre class="r"><code>df_list &lt;- list (df = df_sub,
+                 male = df_sub_m,
+                 fema = df_sub_f,
+                 acute = df_sub_a,
+                 chronic = df_sub_c)</code></pre>
+</div>
 </div>
 <div id="network-analysis" class="section level1">
 <h1>Network analysis</h1>
 <div id="get-column-types" class="section level2">
 <h2>Get column types</h2>
-<pre class="r"><code>stats_type &lt;- c(&quot;edge&quot;, &quot;strength&quot;, &quot;betweenness&quot;, &quot;expectedInfluence&quot;, &quot;closeness&quot;)
+<pre class="r"><code>stats_type &lt;- c(&quot;strength&quot;, &quot;betweenness&quot;, &quot;expectedInfluence&quot;, &quot;closeness&quot;)
 
-my_huge &lt;- function (df) {
+my_huge &lt;- function (df, col_type) {
 
   df[, col_type == &quot;g&quot;] &lt;- huge::huge.npn (df[, col_type == &quot;g&quot;])
 
@@ -1143,110 +2151,773 @@ my_huge &lt;- function (df) {
 
 }
 
-nlvls &lt;- df_sub %&gt;%
-  map_if(is.numeric, function (x) x =1 ) %&gt;%
-  map_if(is.character, n_distinct) %&gt;%
-  unlist ()
+nlvls_list &lt;- col_type_list &lt;- var_names_list &lt;- new_name_list &lt;- vector (&quot;list&quot;, length (df_list))
 
+for (n in seq_along(df_list)) {
+  
+  nlvls_list[[n]] &lt;- df_list[[n]] %&gt;%
+                      map_if(is.numeric, function (x) x =1 ) %&gt;%
+                      map_if(is.character, n_distinct) %&gt;%
+                      unlist ()
+  
+  col_type_list[[n]]  &lt;- df_list[[n]] %&gt;%
+                          map_chr(class) 
 
-col_type &lt;- df_sub %&gt;%
-    map_chr(class) 
+  col_type_list[[n]]  &lt;- ifelse (col_type_list[[n]] == &quot;numeric&quot;, &quot;g&quot;, &quot;c&quot;)
+  
+  df_list[[n]] &lt;- df_list[[n]] %&gt;%
+                  mutate_if (is.character, factor) %&gt;%
+                  mutate_if (is.factor, as.numeric) %&gt;%
+                  mutate_if (nlvls_list[[n]] == 2, ~.x-1)
+  
+  var_names_list[[n]] &lt;- names(df_list[[n]])
 
-col_type &lt;- ifelse (col_type == &quot;numeric&quot;, &quot;g&quot;, &quot;c&quot;)
+}
 
-dat &lt;- df_sub %&gt;%
-  mutate_if (is.character, factor) %&gt;%
-  mutate_if (is.factor, as.numeric) %&gt;%
-  mutate_if (nlvls == 2, ~.x-1)
+new_names &lt;- paste0(&quot;V&quot;, seq(1:ncol (df_list[[1]])))
+names(new_names) &lt;- names(df_list[[1]])
 
-var_names &lt;- names(dat)
-names(dat) &lt;- paste0(&quot;V&quot;, seq(1:ncol (dat)))</code></pre>
+names(df_list[[1]]) &lt;- new_names
+names(df_list[[2]]) &lt;- new_names[names(new_names) %in% names(df_list[[2]])]
+names(df_list[[3]]) &lt;- new_names[names(new_names) %in% names(df_list[[3]])]
+names(df_list[[4]]) &lt;- new_names[names(new_names) %in% names(df_list[[4]])]
+names(df_list[[5]]) &lt;- new_names[names(new_names) %in% names(df_list[[5]])]</code></pre>
 </div>
 <div id="analysis" class="section level2">
 <h2>Analysis</h2>
 <pre class="r"><code># Network analysis
 set.seed(1)
-nw &lt;- estimateNetwork (my_huge(dat), 
-                    default = &quot;mgm&quot;,
-                     type= col_type,
-                     level= nlvls,
-                     criterion  = &quot;CV&quot;,            # we used cross validation to select optimal tuning parameter
-                     nFolds = 10,            # using 10 folds
-                     order = 2,                       # we only include second order interactions
-                     binarySign = TRUE,
-                     scale = TRUE,
-                    .pbar = FALSE,
-                    .signInfo = FALSE)
-# Plot network
-plot (nw,
-      title = &quot;Network&quot;, 
-      label.cex = 1, 
-      vsize = 5, 
-      curve = 0.4, 
-      curveAll = TRUE, 
-      nodeNames = var_names, 
-      title.cex = 4)
 
-# Centrality
-centr &lt;-   centralityTable (nw)# Get centrality measures
-centralityPlot(nw,
-               include = c(&quot;Closeness&quot;, &quot;Strength&quot;, &quot;Betweenness&quot;),  
-               print = FALSE, 
-               scale = &quot;relative&quot;, 
-               labels = var_names)
+nw_list &lt;- centr_list &lt;- centr_stb_list &lt;- edgewts_list &lt;- vector (&quot;list&quot;, length (df_list))
+
+df_list &lt;- list (df = df_list, col_type = col_type_list) %&gt;%
+  pmap (my_huge) 
+
+for (n in seq_along(df_list)) {
+  
+  nw_list[[n]] &lt;- estimateNetwork (data = df_list[[n]],
+                                default = &quot;mgm&quot;,
+                                 type= col_type_list[[n]],
+                                 level= nlvls_list[[n]],
+                                 criterion  = &quot;CV&quot;,# we used cross validation to select optimal tuning parameter
+                                 nFolds = 10, # using 10 folds
+                                 order = 2,# we only include second order interactions
+                                 binarySign = TRUE,
+                                 scale = TRUE,
+                                .pbar = FALSE,
+                                .signInfo = FALSE)
+}
 
 # Centrality stability
 B &lt;-  1000
-centr_stb &lt;- bootnet (nw,
-                      nBoots = B,
-                      type = &quot;case&quot;,
-                      statistics = stats_type)
 
-cor_stb &lt;- corStability (centr_stb)
+registerDoParallel(cores = 3)
+centr_stb_list &lt;- foreach (n = 1:length (df_list), .packages = &quot;bootnet&quot;) %do% 
+  bootnet (nw_list[[n]],
+           nBoots = B,
+           type = &quot;case&quot;,
+           statistics = stats_type)
+stopImplicitCluster()
 
-plot (centr_stb)
+# Edgeweights stability
 
-# Bootstrap by case to get stability of centrality
-edgewts &lt;- bootnet (nw,
-                   nBoots = B)</code></pre>
-<p>Report</p>
+registerDoParallel(cores = 3)
+  edgewts_list &lt;- foreach (n = 1:length (df_list), .packages = &quot;bootnet&quot;) %do% 
+    bootnet (nw_list[[n]],
+             nBoots = B)
+stopImplicitCluster()</code></pre>
 </div>
-<div id="network" class="section level2">
-<h2>Network</h2>
-<pre class="r"><code>plot (nw,
-      title = &quot;Network&quot;, 
-      label.cex = 1, 
-      vsize = 5, 
-      curve = 0.4, 
-      curveAll = TRUE, 
-      nodeNames = var_names, 
-      title.cex = 4)</code></pre>
-<p><img src="figure/2-network.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="save-results" class="section level1">
+<h1>Save results</h1>
+<pre class="r"><code>res &lt;- list (data = df_list,
+             names = var_names_list,
+             nw = nw_list,
+             stb = centr_stb_list,
+             wts =  edgewts_list,
+             original = df_sub)
+
+saveRDS(res,
+        &quot;output/res.RDS&quot;)</code></pre>
+</div>
+<div id="import" class="section level1">
+<h1>Import</h1>
+<pre class="r"><code>res &lt;- readRDS(&quot;output/res.RDS&quot;)
+list2env(res,globalenv())</code></pre>
+<pre><code>&lt;environment: R_GlobalEnv&gt;</code></pre>
+<pre class="r"><code>rm(res)</code></pre>
+</div>
+<div id="report" class="section level1">
+<h1>Report</h1>
+<div id="networks" class="section level2">
+<h2>Networks</h2>
+<pre class="r"><code>par (mfrow = c(3,2))
+
+plot.new()
+# addtable2plot(0,
+#               -15,
+#               data.frame (var = names (df_list[[1]]),
+#                              names = var_names_list[[1]]),
+#               xpad=0, 
+#               ypad=0,
+#               bty=&#39;o&#39;,
+#               cex = 1,
+#               display.rownames = FALSE,
+#               hlines = TRUE,
+#               vlines = TRUE)
+
+
+plot (nw[[1]], title = &quot;Cohort&quot;, label.cex = 3, vsize = 5, curve = 0.4, curveAll = TRUE, title.cex = 5)
+p2 &lt;- plot (nw[[2]], title = &quot;Male&quot;, label.cex = 3, vsize = 5, curve = 0.4, curveAll = TRUE, title.cex = 5)
+p3 &lt;- plot (nw[[3]], title = &quot;Female&quot;, layout = p2$layout, label.cex = 3, vsize = 5, curve = 0.4, curveAll = TRUE, title.cex = 5)
+p4 &lt;- plot (nw[[4]], title = &quot;Acute&quot;,  label.cex = 3, vsize = 5, curve = 0.4, curveAll = TRUE, title.cex = 5)
+p5 &lt;- plot (nw[[5]], title = &quot;Chronic&quot;, layout = p4$layout, label.cex = 3, vsize = 5, curve = 0.4, curveAll = TRUE, title.cex = 5)</code></pre>
+<p><img src="figure/2-network.Rmd/unnamed-chunk-10-1.png" width="2400" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>var_df &lt;- data.frame (var = names (df_list[[1]]),
+                      names = var_names_list[[1]])
+var_df  %&gt;%
+  kbl(caption = &quot;Variable names&quot;) %&gt;%
+  kable_styling() %&gt;%
+  scroll_box(width = &quot;500px&quot;, height = &quot;500px&quot;)</code></pre>
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:500px; ">
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>
+Variable names
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+var
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+names
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+V1
+</td>
+<td style="text-align:left;">
+age
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+V2
+</td>
+<td style="text-align:left;">
+gender
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+V3
+</td>
+<td style="text-align:left;">
+marital_status
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+V4
+</td>
+<td style="text-align:left;">
+education
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+V5
+</td>
+<td style="text-align:left;">
+comorbidities
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+V6
+</td>
+<td style="text-align:left;">
+number_pain_sites
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+V7
+</td>
+<td style="text-align:left;">
+pain_intensity
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+V8
+</td>
+<td style="text-align:left;">
+chronicity
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+V9
+</td>
+<td style="text-align:left;">
+frequency
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+V10
+</td>
+<td style="text-align:left;">
+evolution
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+V11
+</td>
+<td style="text-align:left;">
+change_in_tx
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+V12
+</td>
+<td style="text-align:left;">
+pcs
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+V13
+</td>
+<td style="text-align:left;">
+tsk
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+V14
+</td>
+<td style="text-align:left;">
+job
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+V15
+</td>
+<td style="text-align:left;">
+sad
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+V16
+</td>
+<td style="text-align:left;">
+worry
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+V17
+</td>
+<td style="text-align:left;">
+lonely
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+V18
+</td>
+<td style="text-align:left;">
+anger
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+V19
+</td>
+<td style="text-align:left;">
+helpless
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+V20
+</td>
+<td style="text-align:left;">
+anxiety
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+V21
+</td>
+<td style="text-align:left;">
+surprise
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+V22
+</td>
+<td style="text-align:left;">
+relief
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+V23
+</td>
+<td style="text-align:left;">
+hope
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+V24
+</td>
+<td style="text-align:left;">
+stress_covid
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+V25
+</td>
+<td style="text-align:left;">
+gad
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+V26
+</td>
+<td style="text-align:left;">
+ious
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+V27
+</td>
+<td style="text-align:left;">
+se
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <div id="importance" class="section level2">
 <h2>Importance</h2>
-<pre class="r"><code>centralityPlot(nw,
-               include = c(&quot;Closeness&quot;, &quot;Strength&quot;, &quot;Betweenness&quot;),  
-               print = FALSE, 
-               scale = &quot;relative&quot;, 
-               labels = var_names)</code></pre>
-<pre><code>Note: relative centrality indices are shown on x-axis rather than raw centrality indices.</code></pre>
-<p><img src="figure/2-network.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-</div>
-<div id="save" class="section level1">
-<h1>Save</h1>
-<pre class="r"><code>nw_res &lt;- list (data = df,
-                data_sub = df_sub,
-                dat = dat,
-                nw = nw,
-                centr = centr,
-                centr_stb = centr_stb,
-                cor_stb = cor_stb,
-                edgewts = edgewts)
+<pre class="r"><code>c_fig &lt;- map (nw, centralityPlot, include = c(&quot;Closeness&quot;, &quot;Strength&quot;, &quot;Betweenness&quot;),  
+              print = FALSE, scale = &quot;relative&quot;) %&gt;%
+  map (~.x + 
+                  scale_x_continuous(breaks= c(0, 0.5, 1), lim = c(0, 1)) + 
+                  theme(text = element_text(size = 20), 
+                        axis.text.x = element_text(angle = 45, hjust = 1)), 
+              include = &quot;all&quot;, print = FALSE, scale = &quot;relative&quot;)
 
-saveRDS(nw_res,
-        &quot;output/nw_res.RDS&quot;)</code></pre>
+#tiff(width = 15, height = 15, units = &quot;in&quot;, res = 100, file = &quot;output/odi_strength.tiff&quot;)
+cowplot::plot_grid(plotlist = c_fig, 
+                   labels = c(&quot;Cohort&quot;,&quot;Male&quot;, &quot;Female&quot;, &quot;Acute&quot;, &quot;Chronic&quot; ), 
+                   vjust = 1, 
+                   hjust = 0, 
+                   ncol = 2)</code></pre>
+<p><img src="figure/2-network.Rmd/unnamed-chunk-12-1.png" width="1920" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#dev.off()</code></pre>
+</div>
+<div id="edgeweights-stability" class="section level2">
+<h2>Edgeweights stability</h2>
+<pre class="r"><code>w_fig &lt;- map (wts, plot, order = &quot;sample&quot;, CIstyle = &quot;quantiles&quot;, labels = FALSE)
+
+w_fig &lt;- map (w_fig, ~.x + 
+                  theme(text = element_text(size = 20)), 
+              include = &quot;all&quot;, print = FALSE, scale = &quot;relative&quot;)
+
+cowplot::plot_grid(plotlist = w_fig, 
+                   labels = c(&quot;Cohort&quot;,&quot;Male&quot;, &quot;Female&quot;, &quot;Acute&quot;, &quot;Chronic&quot; ), 
+                   vjust = 1, 
+                   hjust = -1, 
+                   ncol = 5,
+                   nrow = 1)</code></pre>
+<p><img src="figure/2-network.Rmd/unnamed-chunk-13-1.png" width="1920" style="display: block; margin: auto;" /></p>
+</div>
+<div id="centrality-stability" class="section level2">
+<h2>Centrality stability</h2>
+<pre class="r"><code># Plot centrality stability
+s_fig &lt;- map (stb, plot, statistics = c(&quot;closeness&quot;, &quot;strength&quot;, &quot;betweenness&quot;))
+
+s_fig &lt;- map (s_fig, ~.x + 
+                ylab (&quot;Ave Corr&quot;) + 
+                  theme(text = element_text(size = 20), 
+                        axis.text.x = element_text(angle = 90, hjust = 1)), 
+              include = &quot;all&quot;, print = FALSE, scale = &quot;relative&quot;)
+
+
+#tiff(width = 15, height = 15, units = &quot;in&quot;, res = 100, file = &quot;output/odi_stability.tiff&quot;)
+cowplot::plot_grid(plotlist = s_fig, 
+                   labels = c(&quot;Cohort&quot;,&quot;Male&quot;, &quot;Female&quot;, &quot;Acute&quot;, &quot;Chronic&quot; ), 
+                   vjust = 1, 
+                   hjust = -1, 
+                   ncol = 2,
+                   nrow = 3)</code></pre>
+<p><img src="figure/2-network.Rmd/unnamed-chunk-14-1.png" width="1920" style="display: block; margin: auto;" /></p>
+</div>
+<div id="cs-coefficient" class="section level2">
+<h2>CS coefficient</h2>
+<pre class="r"><code>cs_coef &lt;- tibble (data = c(&quot;Cohort&quot;,&quot;Male&quot;, &quot;Female&quot;, &quot;Acute&quot;, &quot;Chronic&quot; ),
+                      stb = stb) %&gt;%
+  mutate (cor_stb = map (stb,
+                         corStability)) %&gt;%
+  select (data, cor_stb) %&gt;%
+  unnest (cols = cor_stb) %&gt;%
+  ungroup() %&gt;%
+  mutate (measure = rep (c(&quot;betweenness&quot;, &quot;closeness&quot;, &quot;expectedInfluence&quot;, &quot;strength&quot;), 5)) %&gt;%
+  mutate (CS = round (cor_stb, 2)) %&gt;%
+  filter (measure %in% c(&quot;betweenness&quot;, &quot;closeness&quot;,&quot;strength&quot;)) %&gt;%
+  dplyr::select (data, measure, CS)</code></pre>
+<pre><code>=== Correlation Stability Analysis === 
+
+Sampling levels tested:
+   nPerson Drop%   n
+1      162  75.0 106
+2      212  67.3 101
+3      263  59.4  76
+4      313  51.7 100
+5      364  43.8 100
+6      414  36.1 102
+7      464  28.4 112
+8      515  20.5  89
+9      565  12.8 110
+10     616   4.9 104
+
+Maximum drop proportions to retain correlation of 0.7 in at least 95% of the samples:
+
+betweenness: 0.205 
+  - For more accuracy, run bootnet(..., caseMin = 0.128, caseMax = 0.284) 
+
+closeness: 0.284 
+  - For more accuracy, run bootnet(..., caseMin = 0.205, caseMax = 0.361) 
+
+expectedInfluence: 0.673 
+  - For more accuracy, run bootnet(..., caseMin = 0.594, caseMax = 0.75) 
+
+strength: 0.361 
+  - For more accuracy, run bootnet(..., caseMin = 0.284, caseMax = 0.438) 
+
+Accuracy can also be increased by increasing both &#39;nBoots&#39; and &#39;caseN&#39;.=== Correlation Stability Analysis === 
+
+Sampling levels tested:
+   nPerson Drop%   n
+1      114  74.9 101
+2      149  67.3 100
+3      185  59.3  91
+4      220  51.6  89
+5      255  44.0  97
+6      291  36.0 117
+7      326  28.4 112
+8      361  20.7 104
+9      397  12.7  86
+10     432   5.1 103
+
+Maximum drop proportions to retain correlation of 0.7 in at least 95% of the samples:
+
+betweenness: 0.207 
+  - For more accuracy, run bootnet(..., caseMin = 0.127, caseMax = 0.284) 
+
+closeness: 0.051 (CS-coefficient is lowest level tested)
+  - For more accuracy, run bootnet(..., caseMin = 0, caseMax = 0.127) 
+
+expectedInfluence: 0.673 
+  - For more accuracy, run bootnet(..., caseMin = 0.593, caseMax = 0.749) 
+
+strength: 0.207 
+  - For more accuracy, run bootnet(..., caseMin = 0.127, caseMax = 0.284) 
+
+Accuracy can also be increased by increasing both &#39;nBoots&#39; and &#39;caseN&#39;.=== Correlation Stability Analysis === 
+
+Sampling levels tested:
+   nPerson Drop%   n
+1       48  75.1  78
+2       63  67.4  94
+3       78  59.6  93
+4       93  51.8  99
+5      108  44.0  95
+6      123  36.3 104
+7      138  28.5 114
+8      153  20.7 122
+9      168  13.0  97
+10     183   5.2 104
+
+Maximum drop proportions to retain correlation of 0.7 in at least 95% of the samples:
+
+betweenness: 0 
+  - For more accuracy, run bootnet(..., caseMin = 0, caseMax = 0.052) 
+
+closeness: 0 
+  - For more accuracy, run bootnet(..., caseMin = 0, caseMax = 0.052) 
+
+expectedInfluence: 0.518 
+  - For more accuracy, run bootnet(..., caseMin = 0.44, caseMax = 0.596) 
+
+strength: 0.052 (CS-coefficient is lowest level tested)
+  - For more accuracy, run bootnet(..., caseMin = 0, caseMax = 0.13) 
+
+Accuracy can also be increased by increasing both &#39;nBoots&#39; and &#39;caseN&#39;.=== Correlation Stability Analysis === 
+
+Sampling levels tested:
+   nPerson Drop%   n
+1       50  75.1  68
+2       66  67.2 112
+3       82  59.2 100
+4       97  51.7 110
+5      113  43.8 111
+6      128  36.3  95
+7      144  28.4  90
+8      160  20.4  99
+9      175  12.9 122
+10     191   5.0  93
+
+Maximum drop proportions to retain correlation of 0.7 in at least 95% of the samples:
+
+betweenness: 0.129 
+  - For more accuracy, run bootnet(..., caseMin = 0.05, caseMax = 0.204) 
+
+closeness: 0 
+  - For more accuracy, run bootnet(..., caseMin = 0, caseMax = 0.05) 
+
+expectedInfluence: 0.517 
+  - For more accuracy, run bootnet(..., caseMin = 0.438, caseMax = 0.592) 
+
+strength: 0.204 
+  - For more accuracy, run bootnet(..., caseMin = 0.129, caseMax = 0.284) 
+
+Accuracy can also be increased by increasing both &#39;nBoots&#39; and &#39;caseN&#39;.=== Correlation Stability Analysis === 
+
+Sampling levels tested:
+   nPerson Drop%   n
+1      112  74.9  92
+2      147  67.1  96
+3      181  59.5 102
+4      216  51.7 102
+5      251  43.8  92
+6      286  36.0 104
+7      320  28.4 105
+8      355  20.6  97
+9      390  12.8 114
+10     425   4.9  96
+
+Maximum drop proportions to retain correlation of 0.7 in at least 95% of the samples:
+
+betweenness: 0.206 
+  - For more accuracy, run bootnet(..., caseMin = 0.128, caseMax = 0.284) 
+
+closeness: 0.206 
+  - For more accuracy, run bootnet(..., caseMin = 0.128, caseMax = 0.284) 
+
+expectedInfluence: 0.595 
+  - For more accuracy, run bootnet(..., caseMin = 0.517, caseMax = 0.671) 
+
+strength: 0.284 
+  - For more accuracy, run bootnet(..., caseMin = 0.206, caseMax = 0.36) 
+
+Accuracy can also be increased by increasing both &#39;nBoots&#39; and &#39;caseN&#39;.</code></pre>
+<pre class="r"><code>cs_coef %&gt;%
+  knitr::kable (caption = &quot;Stability of centrality indices&quot;) %&gt;%
+  kable_styling()</code></pre>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>
+Stability of centrality indices
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+data
+</th>
+<th style="text-align:left;">
+measure
+</th>
+<th style="text-align:right;">
+CS
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Cohort
+</td>
+<td style="text-align:left;">
+betweenness
+</td>
+<td style="text-align:right;">
+0.21
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cohort
+</td>
+<td style="text-align:left;">
+closeness
+</td>
+<td style="text-align:right;">
+0.28
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cohort
+</td>
+<td style="text-align:left;">
+strength
+</td>
+<td style="text-align:right;">
+0.36
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Male
+</td>
+<td style="text-align:left;">
+betweenness
+</td>
+<td style="text-align:right;">
+0.21
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Male
+</td>
+<td style="text-align:left;">
+closeness
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Male
+</td>
+<td style="text-align:left;">
+strength
+</td>
+<td style="text-align:right;">
+0.21
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Female
+</td>
+<td style="text-align:left;">
+betweenness
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Female
+</td>
+<td style="text-align:left;">
+closeness
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Female
+</td>
+<td style="text-align:left;">
+strength
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Acute
+</td>
+<td style="text-align:left;">
+betweenness
+</td>
+<td style="text-align:right;">
+0.13
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Acute
+</td>
+<td style="text-align:left;">
+closeness
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Acute
+</td>
+<td style="text-align:left;">
+strength
+</td>
+<td style="text-align:right;">
+0.20
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Chronic
+</td>
+<td style="text-align:left;">
+betweenness
+</td>
+<td style="text-align:right;">
+0.21
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Chronic
+</td>
+<td style="text-align:left;">
+closeness
+</td>
+<td style="text-align:right;">
+0.21
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Chronic
+</td>
+<td style="text-align:left;">
+strength
+</td>
+<td style="text-align:right;">
+0.28
+</td>
+</tr>
+</tbody>
+</table>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1269,64 +2940,68 @@ locale:
 [5] LC_TIME=English_United Kingdom.1252    
 
 attached base packages:
-[1] stats     graphics  grDevices utils     datasets  methods   base     
+[1] parallel  stats     graphics  grDevices utils     datasets  methods  
+[8] base     
 
 other attached packages:
- [1] huge_1.3.4.1    mgm_1.2-10      bootnet_1.4.6   qgraph_1.6.5   
- [5] skimr_2.1.2     forcats_0.5.0   stringr_1.4.0   dplyr_1.0.2    
- [9] purrr_0.3.4     readr_1.4.0     tidyr_1.1.2     tibble_3.0.4   
-[13] ggplot2_3.3.3   tidyverse_1.3.0
+ [1] kableExtra_1.3.1  doParallel_1.0.16 iterators_1.0.13  foreach_1.5.1    
+ [5] plotrix_3.7-8     cowplot_1.1.1     flextable_0.6.1   officer_0.3.16   
+ [9] huge_1.3.4.1      mgm_1.2-10        bootnet_1.4.6     qgraph_1.6.5     
+[13] skimr_2.1.2       forcats_0.5.0     stringr_1.4.0     dplyr_1.0.2      
+[17] purrr_0.3.4       readr_1.4.0       tidyr_1.1.2       tibble_3.0.4     
+[21] ggplot2_3.3.3     tidyverse_1.3.0   workflowr_1.6.2  
 
 loaded via a namespace (and not attached):
-  [1] readxl_1.3.1         snow_0.4-3           backports_1.2.1     
-  [4] Hmisc_4.4-2          BDgraph_2.63         workflowr_1.6.2     
-  [7] plyr_1.8.6           igraph_1.2.6         repr_1.1.0          
- [10] splines_4.0.2        candisc_0.8-3        digest_0.6.27       
- [13] foreach_1.5.1        htmltools_0.5.0      matrixcalc_1.0-3    
- [16] glassoFast_1.0       gdata_2.18.0         fansi_0.4.1         
- [19] magrittr_2.0.1       checkmate_2.0.0      doParallel_1.0.16   
- [22] cluster_2.1.0        openxlsx_4.2.3       modelr_0.1.8        
- [25] wordcloud_2.6        R.utils_2.10.1       jpeg_0.1-8.1        
- [28] colorspace_2.0-0     rvest_0.3.6          mitools_2.4         
- [31] haven_2.3.1          xfun_0.25            crayon_1.3.4        
- [34] jsonlite_1.7.2       networktools_1.2.3   iterators_1.0.13    
- [37] survival_3.2-7       glue_1.4.2           relaimpo_2.2-3      
- [40] gtable_0.3.0         NetworkToolbox_1.4.1 nnls_1.4            
- [43] car_3.0-10           weights_1.0.1        shape_1.4.5         
- [46] abind_1.4-5          scales_1.1.1         mvtnorm_1.1-1       
- [49] DBI_1.1.0            Rcpp_1.0.6           plotrix_3.7-8       
- [52] htmlTable_2.1.0      tmvnsim_1.0-2        foreign_0.8-81      
- [55] Formula_1.2-4        survey_4.0           heplots_1.3-7       
- [58] stats4_4.0.2         glmnet_4.1-2         htmlwidgets_1.5.3   
- [61] httr_1.4.2           RColorBrewer_1.1-2   lavaan_0.6-9        
- [64] ellipsis_0.3.1       IsingFit_0.3.1       mice_3.12.0         
- [67] farver_2.0.3         pkgconfig_2.0.3      reshape_0.8.8       
- [70] R.methodsS3_1.8.1    nnet_7.3-14          dbplyr_2.0.0        
- [73] labeling_0.4.2       tidyselect_1.1.0     rlang_0.4.10        
- [76] reshape2_1.4.4       later_1.1.0.1        polynom_1.4-0       
- [79] munsell_0.5.0        cellranger_1.1.0     tools_4.0.2         
- [82] cli_2.2.0            generics_0.1.0       IsingSampler_0.2.1  
- [85] broom_0.7.4.9000     fdrtool_1.2.16       evaluate_0.14       
- [88] yaml_2.2.1           knitr_1.30           fs_1.5.0            
- [91] zip_2.1.1            glasso_1.11          pbapply_1.4-3       
- [94] nlme_3.1-151         whisker_0.4          GGMncv_2.0.0        
- [97] R.oo_1.24.0          smacof_2.1-1         xml2_1.3.2          
-[100] compiler_4.0.2       rstudioapi_0.13      curl_4.3            
-[103] png_0.1-7            e1071_1.7-4          reprex_0.3.0        
-[106] pbivnorm_0.6.0       stringi_1.5.3        highr_0.8           
-[109] eigenmodel_1.11      lattice_0.20-41      Matrix_1.2-18       
-[112] psych_2.0.12         vctrs_0.3.6          pillar_1.4.7        
-[115] lifecycle_0.2.0      data.table_1.14.0    corpcor_1.6.9       
-[118] httpuv_1.5.4         R6_2.5.0             latticeExtra_0.6-29 
-[121] promises_1.1.1       rio_0.5.16           gridExtra_2.3       
-[124] codetools_0.2-18     boot_1.3-25          MASS_7.3-53         
-[127] gtools_3.8.2         assertthat_0.2.1     rprojroot_2.0.2     
-[130] rjson_0.2.20         withr_2.3.0          mnormt_2.0.2        
-[133] parallel_4.0.2       hms_0.5.3            grid_4.0.2          
-[136] rpart_4.1-15         class_7.3-17         rmarkdown_2.10      
-[139] carData_3.0-4        git2r_0.27.1         d3Network_0.5.2.1   
-[142] numDeriv_2016.8-1.1  lubridate_1.7.9.2    base64enc_0.1-3     
-[145] ellipse_0.4.2       </code></pre>
+  [1] R.utils_2.10.1       tidyselect_1.1.0     htmlwidgets_1.5.3   
+  [4] grid_4.0.2           munsell_0.5.0        codetools_0.2-18    
+  [7] withr_2.3.0          colorspace_2.0-0     NetworkToolbox_1.4.1
+ [10] highr_0.8            knitr_1.30           uuid_0.1-4          
+ [13] rstudioapi_0.13      stats4_4.0.2         labeling_0.4.2      
+ [16] git2r_0.27.1         repr_1.1.0           mnormt_2.0.2        
+ [19] farver_2.0.3         rprojroot_2.0.2      vctrs_0.3.6         
+ [22] generics_0.1.0       xfun_0.25            R6_2.5.0            
+ [25] smacof_2.1-1         reshape_0.8.8        assertthat_0.2.1    
+ [28] promises_1.1.1       scales_1.1.1         nnet_7.3-14         
+ [31] gtable_0.3.0         weights_1.0.1        rlang_0.4.10        
+ [34] systemfonts_0.3.2    splines_4.0.2        wordcloud_2.6       
+ [37] broom_0.7.4.9000     checkmate_2.0.0      yaml_2.2.1          
+ [40] reshape2_1.4.4       abind_1.4-5          modelr_0.1.8        
+ [43] d3Network_0.5.2.1    backports_1.2.1      httpuv_1.5.4        
+ [46] Hmisc_4.4-2          tools_4.0.2          psych_2.0.12        
+ [49] lavaan_0.6-9         ellipsis_0.3.1       RColorBrewer_1.1-2  
+ [52] polynom_1.4-0        Rcpp_1.0.6           plyr_1.8.6          
+ [55] base64enc_0.1-3      ps_1.5.0             rpart_4.1-15        
+ [58] pbapply_1.4-3        haven_2.3.1          cluster_2.1.0       
+ [61] fs_1.5.0             survey_4.0           magrittr_2.0.1      
+ [64] data.table_1.14.0    openxlsx_4.2.3       reprex_0.3.0        
+ [67] tmvnsim_1.0-2        mvtnorm_1.1-1        matrixcalc_1.0-3    
+ [70] whisker_0.4          hms_0.5.3            evaluate_0.14       
+ [73] rio_0.5.16           jpeg_0.1-8.1         readxl_1.3.1        
+ [76] gridExtra_2.3        shape_1.4.5          compiler_4.0.2      
+ [79] ellipse_0.4.2        mice_3.12.0          GGMncv_2.0.0        
+ [82] crayon_1.3.4         R.oo_1.24.0          htmltools_0.5.0     
+ [85] corpcor_1.6.9        later_1.1.0.1        Formula_1.2-4       
+ [88] snow_0.4-3           lubridate_1.7.9.2    DBI_1.1.0           
+ [91] relaimpo_2.2-3       dbplyr_2.0.0         MASS_7.3-53         
+ [94] boot_1.3-25          IsingSampler_0.2.1   Matrix_1.2-18       
+ [97] IsingFit_0.3.1       car_3.0-10           cli_2.2.0           
+[100] heplots_1.3-7        mitools_2.4          R.methodsS3_1.8.1   
+[103] gdata_2.18.0         igraph_1.2.6         BDgraph_2.63        
+[106] pkgconfig_2.0.3      numDeriv_2016.8-1.1  foreign_0.8-81      
+[109] xml2_1.3.2           pbivnorm_0.6.0       webshot_0.5.2       
+[112] rvest_0.3.6          digest_0.6.27        rmarkdown_2.10      
+[115] cellranger_1.1.0     htmlTable_2.1.0      glassoFast_1.0      
+[118] gdtools_0.2.3        curl_4.3             gtools_3.8.2        
+[121] rjson_0.2.20         lifecycle_0.2.0      nlme_3.1-151        
+[124] glasso_1.11          jsonlite_1.7.2       carData_3.0-4       
+[127] viridisLite_0.3.0    fansi_0.4.1          pillar_1.4.7        
+[130] lattice_0.20-41      httr_1.4.2           survival_3.2-7      
+[133] glue_1.4.2           networktools_1.2.3   zip_2.1.1           
+[136] fdrtool_1.2.16       png_0.1-7            candisc_0.8-3       
+[139] glmnet_4.1-2         class_7.3-17         stringi_1.5.3       
+[142] nnls_1.4             latticeExtra_0.6-29  eigenmodel_1.11     
+[145] e1071_1.7-4         </code></pre>
+</div>
 </div>
 </div>
 
