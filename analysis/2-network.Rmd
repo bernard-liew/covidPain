@@ -13,6 +13,7 @@ editor_options:
 # Tidying
 library (tidyverse)
 library (skimr)
+library (arsenal)
 
 # Network analysis
 library (qgraph)
@@ -62,6 +63,7 @@ vars_keep <- c("age",
                "chronicity",
                "frequency",
                "evolution",
+               "interference",
                "change_in_tx",
                "pcs",
                "tsk",
@@ -80,36 +82,134 @@ vars_keep <- c("age",
                "ious",
                "se")
 
-df_sub <- df %>%
-  dplyr::select (all_of (vars_keep))
+names2use <- c("Age",
+               "Gender",
+               "Marital_status",
+               "Education",
+               "comorbidities",
+               "Number_pain_sites",
+               "Pain_intensity",
+               "Chronicity",
+               "Frequency",
+               "Pain_evolution",
+               "Interference",
+               "Change_in_tx",
+               "Pcs",
+               "Tsk",
+               "Job",
+               "Sad",
+               "Worry",
+               "Lonely",
+               "Anger",
+               "Helpless",
+               "Anxiety",
+               "Surprise",
+               "Relief",
+               "Hope",
+               "Stress_covid",
+               "Gad",
+               "Ious",
+               "Se")
 
+df_sub <- df %>%
+  dplyr::select (all_of (vars_keep)) %>%
+  mutate_if(is.character, tolower) %>%
+  mutate (gender = ifelse (gender == "h", "0", "1"), # 0 = male, 1= female
+          comorbidities = ifelse (comorbidities == "no", "0", "1"),
+          chronicity = ifelse (chronicity == "acute", "0", "1"),
+          frequency = ifelse (frequency == "constantly", "0", 
+           ifelse (frequency == "daily", "1",
+                   ifelse (frequency == "weekly", "2", "3"))),
+          change_in_tx = ifelse (change_in_tx== "no", "0", "1"))
 
 ```
+
+```{r}
+
+meanNsd_transform <- function (x) {
+
+  m <- round (x[[1]][1], 2)
+  s <- round (x[[1]][2], 2)
+
+  m_s <- paste0(m, "(", s, ")")
+
+  return (m_s)
+}
+
+demo <- df_sub %>%
+  select (where (is.numeric), everything())
+
+tab1 <- tableby ( ~. , data = demo, digits = 2, digits.p = 2) %>%
+  as.data.frame() %>%
+  filter (!term %in% c("Nmiss", "range")) %>%
+  select (-c(group.term:term, variable.type, Total)) 
+
+
+tab2 <-  tab1[-c (seq (1, 37, 2), 39, 42, 45, 48, 51, 54, 59, 62, 65),]
+tab2$label <- c("Age", "Pain sites", "Pain intensity", "Pain interference","PCS", 
+                "TSK", "Sad", "Worry", "Lonely", "Anger", "Helpless", "Anxiety",
+                "Surprise", "Relief", "Hope", "Stress of Covid", "GAD", "IOUS", "SE", 
+                "Sex - Male", "Sex - Female", 
+                "Marital status - Married", "Marital status - Others",
+                "Education - University", "Education - Others",
+                "Comorbidities - No", "Comorbidities - Yes",
+                "Chronicity - Acute", "Chronicity - Chronic",
+                "Frequency - Constant", "Frequency - Daily", 
+                "Frequency - Weekly", "Frequency - Occasionally",
+                "Pain Evolution - Worse", "Evolution - Others",
+                "Change in treatment - No", "Change in treatment - Yes",
+                "Job - Full-time", "Job - Others")
+
+for(row in 1:nrow(tab2)) {
+    tab2[row, 2] <- meanNsd_transform (tab2[row, 2])
+  }
+
+tab2 <- unnest(tab2, Overall)
+
+colnames (tab2) <- c ("Variables", 
+                      "Summary value")
+
+
+
+my_path <- paste0("manuscript/SM_table1", 
+                  "baseline",
+                  ".docx")
+
+ft <- flextable(tab2) %>%
+  set_caption(caption = " Table 1.Baseline descriptive characteristics of cohort") %>%
+  autofit() 
+
+my_doc <- read_docx()  %>% 
+  body_add_flextable(ft)
+
+print (my_doc, target = my_path)
+```
+
 
 ## Create subgroup datasets
 
 ```{r}
 # Sex
-df_sub_m <- df_sub %>%
-  filter (gender == "M") %>%
-  select (-gender)
 df_sub_f <- df_sub %>%
-  filter (gender == "H")%>%
+  filter (gender == "1") %>%
+  select (-gender)
+df_sub_m <- df_sub %>%
+  filter (gender == "0")%>%
   select (-gender)
 nrow(df_sub_m) + nrow(df_sub_f) == nrow (df_sub)
 
 # Chronicity
 df_sub_c <- df_sub %>%
-  filter (chronicity == "Chronic")%>%
+  filter (chronicity == "1")%>%
   select (-chronicity)
 df_sub_a <- df_sub %>%
-  filter (chronicity == "Acute")%>%
+  filter (chronicity == "0")%>%
   select (-chronicity)
 nrow(df_sub_a) + nrow(df_sub_c) == nrow (df_sub)
 
 df_list <- list (df = df_sub,
-                 male = df_sub_m,
                  fema = df_sub_f,
+                 male = df_sub_m,
                  acute = df_sub_a,
                  chronic = df_sub_c)
 ```
@@ -235,6 +335,12 @@ list2env(res,globalenv())
 rm(res)
 ```
 
+```{r}
+
+names <- names %>%
+  map (~ ifelse (.x == "evolution", "pain_evolution", .x))
+```
+
 # Report
 
 ## Networks
@@ -258,12 +364,100 @@ plot.new()
 
 
 plot (nw[[1]], title = "Cohort", label.cex = 3, vsize = 5, curve = 0.4, curveAll = TRUE, title.cex = 5)
-p2 <- plot (nw[[2]], title = "Male", label.cex = 3, vsize = 5, curve = 0.4, curveAll = TRUE, title.cex = 5)
-p3 <- plot (nw[[3]], title = "Female", layout = p2$layout, label.cex = 3, vsize = 5, curve = 0.4, curveAll = TRUE, title.cex = 5)
+p2 <- plot (nw[[2]], title = "Female", label.cex = 3, vsize = 5, curve = 0.4, curveAll = TRUE, title.cex = 5)
+p3 <- plot (nw[[3]], title = "Male", layout = p2$layout, label.cex = 3, vsize = 5, curve = 0.4, curveAll = TRUE, title.cex = 5)
 p4 <- plot (nw[[4]], title = "Acute",  label.cex = 3, vsize = 5, curve = 0.4, curveAll = TRUE, title.cex = 5)
 p5 <- plot (nw[[5]], title = "Chronic", layout = p4$layout, label.cex = 3, vsize = 5, curve = 0.4, curveAll = TRUE, title.cex = 5)
 
 ```
+
+
+```{r fig.height=30, fig.width=25, message=FALSE, warning=FALSE}
+
+# Cohort
+png ("manuscript/fig1.png", width = 15, height = 8, units = "in", res = 100)
+  plot (nw[[1]], 
+        title = "Cohort", 
+        label.cex = 1.5, 
+        vsize = 5, 
+        curve = 0.4, 
+        curveAll = TRUE, 
+        legend =TRUE,
+        nodeNames = names[[1]],
+        title.cex = 2)
+dev.off()
+
+#Subgroup sex
+
+png ("manuscript/fig2.png", width = 20, height = 8, units = "in", res = 100)
+par (mfrow = c(1,3))
+
+  p2 <- plot (nw[[2]], 
+              title = "Female", 
+              label.cex = 1.5, 
+              vsize = 6, 
+              curve = 0.4, 
+              curveAll = TRUE, 
+              title.cex = 2)
+  p3 <- plot (nw[[3]], 
+              title = "Male", 
+              layout = p2$layout, 
+              label.cex = 1.5, 
+              vsize = 6, 
+              curve = 0.4, 
+              curveAll = TRUE, 
+              title.cex = 2)
+  plot.new()
+  addtable2plot(0,
+                0,
+                data.frame (var = names (data[[2]]),
+                           names = names[[2]]),
+                xpad=0,
+                ypad=1,
+                bty='o',
+                cex = 1.2,
+                display.rownames = FALSE,
+                hlines = TRUE,
+                vlines = TRUE)
+
+dev.off()
+
+# Subgroup chronicity
+
+png ("manuscript/fig3.png", width = 20, height = 8, units = "in", res = 100)
+par (mfrow = c(1,3))
+
+  p4 <- plot (nw[[4]], 
+              title = "Acute", 
+              label.cex = 1.5, 
+              vsize = 6, 
+              curve = 0.4, 
+              curveAll = TRUE, 
+              title.cex = 2)
+  p5 <- plot (nw[[5]], 
+              title = "Chronic", 
+              layout = p4$layout, 
+              label.cex = 1.5, 
+              vsize = 6, 
+              curve = 0.4, 
+              curveAll = TRUE, 
+              title.cex = 2)
+  plot.new()
+  addtable2plot(0,
+                0,
+                data.frame (var = names (data[[4]]),
+                           names = names[[4]]),
+                xpad=0,
+                ypad=1,
+                bty='o',
+                cex = 1.2,
+                display.rownames = FALSE,
+                hlines = TRUE,
+                vlines = TRUE)
+dev.off()
+
+```
+
 
 ```{r}
 
@@ -278,67 +472,142 @@ var_df  %>%
 ## Importance
 
 ```{r, fig.height=30, fig.width=20, message=FALSE, warning=FALSE}
-c_fig <- map (nw, centralityPlot, include = c("Closeness", "Strength", "Betweenness"),  
+
+png ("manuscript/fig4.png", width = 15, height = 6, units = "in", res = 100)
+
+c_fig <- pmap (list (nw, labels = names), centralityPlot, include = c("Strength"),  
               print = FALSE, scale = "relative") %>%
   map (~.x + 
                   scale_x_continuous(breaks= c(0, 0.5, 1), lim = c(0, 1)) + 
+                  theme_cowplot() + 
+                  theme(strip.background = element_blank(), 
+                        strip.text = element_blank()) + 
                   theme(text = element_text(size = 20), 
-                        axis.text.x = element_text(angle = 45, hjust = 1)), 
+                        #axis.text.x = element_text(angle = 45, hjust = 1),
+                        axis.text.y = element_text(angle = 30, hjust = 1)), 
               include = "all", print = FALSE, scale = "relative")
 
 #tiff(width = 15, height = 15, units = "in", res = 100, file = "output/odi_strength.tiff")
 cowplot::plot_grid(plotlist = c_fig, 
-                   labels = c("Cohort","Male", "Female", "Acute", "Chronic" ), 
+                   labels = c("a. Cohort","b. Female", "c. Male", "d. Acute", "e. Chronic" ), 
                    vjust = 1, 
-                   hjust = 0, 
-                   ncol = 2)
-#dev.off()
+                   hjust = -1, 
+                   ncol = 5,
+                   nrow = 1)
+dev.off()
 ```
 
 
 
 ## Edgeweights stability
-```{r, fig.height=30, fig.width=20, message=FALSE, warning=FALSE}
-w_fig <- map (wts, plot, order = "sample", CIstyle = "quantiles", labels = FALSE)
 
-w_fig <- map (w_fig, ~.x + 
-                  theme(text = element_text(size = 20)), 
-              include = "all", print = FALSE, scale = "relative")
+```{r, eval = FALSE, include = FALSE}
+# Easy reporting in manuscript
+n = 5
+
+x <- summary (wts[[n]]) %>%
+  ungroup () %>%
+  filter (type == "edge" & sample != 0) %>%
+  dplyr::select (id, node1, node2, sample, q2.5, q97.5) %>%
+  mutate (samp_abs = abs (sample)) %>%
+  #group_by(node1) %>%
+  #slice_max (samp_abs, n = 4) %>%
+  map_if (is.numeric, round, 2) %>%
+  bind_cols()
+
+x_max <- x %>%
+  slice_max (samp_abs, n = 5)
+
+```
+
+```{r, fig.height=30, fig.width=20, message=FALSE, warning=FALSE}
+
+png ("manuscript/fig5.png", width = 15, height = 6, units = "in", res = 100)
+
+w_fig <- map (wts, plot, order = "sample", CIstyle = "quantiles", labels = FALSE, bootColor = "black",  areaAlpha = 0.6)
+
+w_fig <- map (w_fig, 
+              ~.x + 
+                  theme_cowplot() + 
+                  theme(strip.background = element_blank(), 
+                        strip.text = element_blank(),
+                        axis.text.y=element_blank()) +
+                 guides(color = FALSE))
 
 cowplot::plot_grid(plotlist = w_fig, 
-                   labels = c("Cohort","Male", "Female", "Acute", "Chronic" ), 
+                   labels = c("a. Cohort","b. Female", "c. Male", "d. Acute", "e. Chronic" ), 
                    vjust = 1, 
                    hjust = -1, 
                    ncol = 5,
                    nrow = 1)
+dev.off()
+
 ```
 
 ## Centrality stability
 
+```{r}
+for (n in seq_along (df_list)) {
+  
+  c_val <- c_fig[[n]]$data %>%
+    slice_max (value, n = 3) %>%
+    pull (node) %>%
+    unique () %>%
+    as.character()
+  
+  cat ("At", names(df_list)[n], "across all three centrality measures, the three nodes with the greatest value was",     c_val[[1]], "and", c_val[[2]], c_val[[3]],"\n")
+  
+}
+```
+
+
 ```{r fig.height=20, fig.width=20, message=FALSE, warning=FALSE}
+
+
+png ("manuscript/fig6.png", width = 6, height = 10, units = "in", res = 100)
 # Plot centrality stability
-s_fig <- map (stb, plot, statistics = c("closeness", "strength", "betweenness"))
+s_fig <- map (stb, plot, statistics = c( "strength"))
 
 s_fig <- map (s_fig, ~.x + 
+                theme_cowplot() + 
                 ylab ("Ave Corr") + 
-                  theme(text = element_text(size = 20), 
-                        axis.text.x = element_text(angle = 90, hjust = 1)), 
+                  theme(text = element_text(size = 16), 
+                        axis.text.x = element_text(angle = 90, hjust = 1),
+                        legend.position = "none") + 
+                geom_ribbon (alpha = 0.5, colour = "white") + 
+                scale_color_manual (values = "black") + 
+                scale_fill_manual (values = "grey") + 
+                guides(color = FALSE), 
               include = "all", print = FALSE, scale = "relative")
 
 
 #tiff(width = 15, height = 15, units = "in", res = 100, file = "output/odi_stability.tiff")
-cowplot::plot_grid(plotlist = s_fig, 
-                   labels = c("Cohort","Male", "Female", "Acute", "Chronic" ), 
+cowplot::plot_grid(s_fig[[1]] + 
+                   theme(axis.text.x = element_blank(),
+                         axis.title.x = element_blank()),
+                   s_fig[[2]] + 
+                   theme(axis.text.x = element_blank(),
+                         axis.title.x = element_blank()),
+                   s_fig[[3]] + 
+                   theme(axis.text.x = element_blank(),
+                         axis.title.x = element_blank()),
+                   s_fig[[4]] + 
+                   theme(axis.text.x = element_blank(),
+                         axis.title.x = element_blank()),
+                   s_fig[[5]] ,
+                   labels = c("a. Cohort","b. Female", "c. Male", "d. Acute", "e. Chronic" ), 
                    vjust = 1, 
-                   hjust = -1, 
-                   ncol = 2,
-                   nrow = 3)
+                   hjust = -2, 
+                   ncol = 1,
+                   nrow = 5)
+
+dev.off()
 ```
 
 ##  CS coefficient
 
 ```{r, message=FALSE, warning=FALSE}
-cs_coef <- tibble (data = c("Cohort","Male", "Female", "Acute", "Chronic" ),
+cs_coef <- tibble (data = c("Cohort","Female", "Male", "Acute", "Chronic" ),
                       stb = stb) %>%
   mutate (cor_stb = map (stb,
                          corStability)) %>%
@@ -347,8 +616,8 @@ cs_coef <- tibble (data = c("Cohort","Male", "Female", "Acute", "Chronic" ),
   ungroup() %>%
   mutate (measure = rep (c("betweenness", "closeness", "expectedInfluence", "strength"), 5)) %>%
   mutate (CS = round (cor_stb, 2)) %>%
-  filter (measure %in% c("betweenness", "closeness","strength")) %>%
-  dplyr::select (data, measure, CS)
+  filter (measure %in% c("strength")) %>%
+  dplyr::select (data, CS)
 
 cs_coef %>%
   knitr::kable (caption = "Stability of centrality indices") %>%

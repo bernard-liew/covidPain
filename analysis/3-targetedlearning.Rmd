@@ -1,0 +1,377 @@
+---
+title: "3-targetedlearning"
+author: "Bernard"
+date: "2021-10-27"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+# Load package
+
+```{r}
+library(data.table)
+library(tidyverse)
+library(tmle3)
+library(dagitty)
+library(ggdag)
+library(sl3)
+library (tmle3mediate)
+library (tmle3mopttx)
+library (mediation)
+```
+
+# Import
+
+```{r}
+df <- readRDS("output/df_clean.RDS")
+
+vars_keep  <- c("age",
+               "gender",
+               "marital_status",
+               "education",
+               "comorbidities",
+               "number_pain_sites",
+               "pain_intensity",
+               "chronicity",
+               "frequency",
+               "evolution",
+               "interference",
+               "change_in_tx",
+               "pcs",
+               "tsk",
+               "job",
+               "sad",
+               "worry",
+               "lonely",
+               "anger",
+               "helpless",
+               "anxiety",
+               "surprise",
+               "relief",
+               "hope",
+               "stress_covid",
+               "gad",
+               "ious",
+               "se")
+
+df_sub <- df %>%
+  dplyr::select (all_of (vars_keep)) %>%
+  mutate_if(is.character, tolower) %>%
+  mutate (gender = ifelse (gender == "h", "0", "1"),
+          comorbidities = ifelse (comorbidities == "no", "0", "1"),
+          chronicity = ifelse (chronicity == "acute", "0", "1"),
+          frequency = ifelse (frequency == "constantly", "0", 
+           ifelse (frequency == "daily", "1",
+                   ifelse (frequency == "weekly", "2", "3"))),
+          change_in_tx = ifelse (change_in_tx== "no", "0", "1")) %>%
+  mutate_if(is.character, factor) %>%
+  mutate (change_in_tx = as.numeric (change_in_tx)-1) %>%
+  mutate (evolution = as.numeric (evolution)-1)
+```
+
+# DAG
+
+```{r}
+# make DAG by specifying dependence structure
+dag <- dagitty(
+  "dag {
+    change_in_tx -> evolution
+    age -> evolution
+    gender -> evolution 
+    comorbidities -> evolution 
+    chronicity -> evolution 
+    job -> evolution
+    gad -> evolution
+    stress_covid -> evolution
+    pain_intensity -> evolution
+    tsk -> evolution
+    pcs -> evolution
+    se -> evolution
+    
+    age -> change_in_tx
+    gender -> change_in_tx 
+    comorbidities -> change_in_tx 
+    chronicity -> change_in_tx 
+    job -> change_in_tx
+    gad -> change_in_tx
+    stress_covid -> change_in_tx
+    pain_intensity -> change_in_tx
+    tsk -> change_in_tx
+    pcs -> change_in_tx
+    se -> change_in_tx
+  }"
+)
+exposures(dag) <- c("change_in_tx")
+outcomes(dag) <- c("evolution")
+tidy_dag <- tidy_dagitty(dag)
+
+# visualize DAG
+ggdag(tidy_dag) +
+  theme_dag()
+```
+
+
+
+# List learners
+
+```{r}
+sl3_list_learners("binomial")
+```
+
+
+# Average treatment effect
+
+## Node list
+
+```{r}
+node_list <- list(
+  W = c(
+    "age", 
+    "gender", 
+    "comorbidities", 
+    "chronicity", 
+    "gad", 
+    "stress_covid",
+    "pain_intensity", 
+    "tsk", 
+    "pcs", 
+    "se"
+  ),
+  A = "change_in_tx", # no = 0. yes = 1
+  Y = "evolution" # worse = 0, not worst =1
+)
+```
+
+## Superlearners
+
+```{r}
+# Binary outcomes learners
+lasso_binary_learner <- Lrnr_glmnet$new(
+  alpha = 1, family = "binomial", nfolds = 3
+)
+
+glm_binary_learner <- Lrnr_glm_fast$new()
+
+gbm_binary_learner <- Lrnr_gbm$new()
+
+forest_binary_learner <- Lrnr_randomForest$new(
+  ntree = 500
+)
+
+xgb_binary_learner <- Lrnr_xgboost$new(
+  #params = list (obj = "binary:logistic")
+)
+
+mean_learner <- Lrnr_mean$new()
+
+binary_learner_lib <- Stack$new(
+  lasso_binary_learner, 
+  glm_binary_learner,
+  gbm_binary_learner,
+  forest_binary_learner, 
+  xgb_binary_learner,
+  mean_learner
+)
+
+sl_binary_learner <- Lrnr_sl$new(learners = binary_learner_lib)
+
+learner_list <- list(A = sl_binary_learner , Y = sl_binary_learner)
+
+
+
+```
+
+
+## Model
+
+```{r}
+ate_spec <- tmle_ATE(
+  treatment_level = "1",
+  control_level = "0"
+)
+
+tmle_fit <- tmle3(ate_spec, df_sub, node_list, learner_list)
+tmle_fit
+```
+
+
+## Optimal treatment
+
+### Node list
+
+```{r}
+V <- c(
+    "age", 
+    "gender", 
+    "chronicity", 
+    "pain_intensity", 
+    "tsk", 
+    "se"
+)
+```
+
+## Superlearners
+
+```{r}
+
+learner_list <- list(A = sl_binary_learner, 
+                     Y = sl_binary_learner, 
+                     B = sl_binary_learner)
+
+
+```
+
+### Model
+
+```{r}
+tmle_spec <- tmle3_mopttx_blip_revere(
+  V = V, 
+  type = "blip1",
+  learners = learner_list,
+  maximize = TRUE, 
+  complex = TRUE,
+  #realistic = TRUE, 
+  resource = 1, 
+  interpret = TRUE
+)
+
+opttx_fit <- tmle3(tmle_spec, df_sub, node_list, learner_list)
+opttx_fit
+```
+
+### Mediation
+
+# Node list
+
+```{r}
+node_list <- list(
+  W = c(
+    "age", 
+    "gender", 
+    "marital_status", 
+    "education", 
+    "comorbidities", 
+    "number_pain_sites", 
+    "chronicity", 
+    "job", 
+    "gad", 
+    "ious", 
+    "stress_covid"
+  ),
+  A = "change_in_tx",
+  Z = c(
+    "pain_intensity", 
+    "tsk", 
+    "pcs", 
+    "se"
+    ),
+  Y = "evolution"
+)
+```
+
+### Superlearners
+
+```{r}
+
+## Define 
+
+# Binary outcomes learners
+lasso_binary_learner <- Lrnr_glmnet$new(
+  alpha = 1, family = "binomial", nfolds = 3
+)
+
+glm_binary_learner <- Lrnr_glm_fast$new()
+
+forest_binary_learner <- Lrnr_randomForest$new(
+  ntree = 500
+)
+
+forest_binary_learner <- Lrnr_randomForest$new(
+  ntree = 500
+)
+
+xgb_binary_learner <- Lrnr_xgboost$new(
+  #params = list (obj = "binary:logistic")
+)
+
+
+lasso_contin_learner <- Lrnr_glmnet$new(
+  alpha = 1, family = "gaussian", nfolds = 3
+)
+
+
+mean_learner <- Lrnr_mean$new()
+
+binary_learner_lib <- Stack$new(
+  lasso_binary_learner, 
+  glm_binary_learner,
+  forest_binary_learner, 
+  forest_binary_learner,
+  xgb_binary_learner,
+  mean_learner
+)
+sl_binary_learner <- Lrnr_sl$new(learners = binary_learner_lib)
+
+learner_list <- list(A = sl_binary_learner , Y = sl_binary_learner )
+
+
+
+```
+
+### Indirect effect
+
+```{r}
+
+
+tmle_spec_NIE <- tmle_NIE(
+  e_learners = Lrnr_cv$new(lasso_binary_learner, full_fit = TRUE),
+  psi_Z_learners = Lrnr_cv$new(lasso_contin_learner, full_fit = TRUE),
+  max_iter = 1
+)
+
+df_NIE <- tmle3(
+  tmle_spec_NIE, 
+  df_sub, 
+  node_list, 
+  learner_list
+)
+
+df_NIE
+```
+
+### Direct effect
+
+```{r}
+tmle_spec_NDE <- tmle_NDE(
+  e_learners = Lrnr_cv$new(lasso_binary_learner, full_fit = TRUE),
+  psi_Z_learners = Lrnr_cv$new(lasso_contin_learner, full_fit = TRUE),
+  max_iter = 1
+)
+df_NDE <- tmle3(
+  tmle_spec_NDE, 
+  df_sub, 
+  node_list, 
+  learner_list
+)
+
+df_NDE
+```
+
+
+
+# Simple mediation
+
+```{r}
+m.mod <- lm (pcs ~ change_in_tx + age + gender+marital_status+education+comorbidities+number_pain_sites+chronicity+job+gad+ious+stress_covid, data = df_sub)
+
+o.mod <- glm (evolution ~  pcs + change_in_tx + age + gender+marital_status+education+comorbidities+number_pain_sites+chronicity+job+gad+ious+stress_covid, data = df_sub)
+
+med <- mediate (m.mod,
+                o.mod,
+                treat = "change_in_tx",
+                mediator = "pcs")
+
+plot (med)
+```
+
